@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR Code Generator</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Ei mitään</string>
+	<string name="auth_type">Authentication Type</string>
+	<string name="network_name">Network Name (SSID)</string>
+	<string name="network_password">Verkon salasana</string>
+	<string name="generate">Tuottaa</string>
+	<string name="no_name">Et ole määritetty verkkonimi.</string>
+	<string name="no_pass">Et ole määrittänyt salasanaa.</string>
+	<string name="save">Tallenna</string>
+	<string name="saved_ssids">Tallennetut SSID</string>
+	<string name="saveds_title">Tallennettuja yhteysosoitteita</string>
+	<string name="saved_access_points">Tallennetut tukiasemat</string>
+	<string name="share_qr">Jaa QR Code</string>
+	<string name="select">Valitse</string>
+	<string name="delete">Poista</string>
+</resources>

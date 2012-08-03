@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">QR Code Generator Wifi</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Żaden</string>
+	<string name="auth_type">Typ uwierzytelniania</string>
+	<string name="network_name">Nazwa sieci (SSID)</string>
+	<string name="network_password">Hasło sieci</string>
+	<string name="generate">Generowanie</string>
+	<string name="no_name">Nie określono nazwy sieci.</string>
+	<string name="no_pass">Nie określono hasła.</string>
+	<string name="save">Zaoszczędzić</string>
+	<string name="saved_ssids">Zapisane SSID</string>
+	<string name="saveds_title">Zapisane punkty dostępu</string>
+	<string name="saved_access_points">Zapisane punkty dostępu</string>
+	<string name="share_qr">Poleć QR Code</string>
+	<string name="select">Wybierz</string>
+	<string name="delete">Usunąć</string>
+</resources>

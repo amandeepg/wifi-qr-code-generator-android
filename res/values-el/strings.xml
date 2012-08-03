@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR Γεννήτρια κώδικα</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Κανένας</string>
+	<string name="auth_type">Τύπος ελέγχου ταυτότητας</string>
+	<string name="network_name">Όνομα δικτύου (SSID)</string>
+	<string name="network_password">Δίκτυο κωδικό σας</string>
+	<string name="generate">Δημιουργία</string>
+	<string name="no_name">Δεν έχετε καθορίσει ένα όνομα δικτύου.</string>
+	<string name="no_pass">Δεν έχετε καθορίσει κωδικό πρόσβασης.</string>
+	<string name="save">Εκτός</string>
+	<string name="saved_ssids">Αποθηκευμένες SSIDs</string>
+	<string name="saveds_title">Αποθηκευμένα σημεία πρόσβασης</string>
+	<string name="saved_access_points">Αποθηκευμένα σημεία πρόσβασης</string>
+	<string name="share_qr">Μοιραστείτε QR κώδικα</string>
+	<string name="select">Επιλέξτε</string>
+	<string name="delete">Διαγραφή</string>
+</resources>

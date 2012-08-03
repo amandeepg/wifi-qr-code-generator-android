@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR Kode Generator</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Geen</string>
+	<string name="auth_type">Verifikasie Type</string>
+	<string name="network_name">Netwerk Naam (SSID)</string>
+	<string name="network_password">Netwerk Wagwoord</string>
+	<string name="generate">Genereer</string>
+	<string name="no_name">Jy het nie gespesifiseer \'n netwerk naam.</string>
+	<string name="no_pass">Jy het nie gespesifiseer \'n wagwoord.</string>
+	<string name="save">Slaan</string>
+	<string name="saved_ssids">Saved SSIDs</string>
+	<string name="saveds_title">Saved Access Points</string>
+	<string name="saved_access_points">Saved toegang punte</string>
+	<string name="share_qr">QR-kode te deel</string>
+	<string name="select">Kies</string>
+	<string name="delete">Verwyder</string>
+	
+	<string name="root_detected_message">Root access has been detected on your device. Would you like to allow this application to access your saved Wifi networks and passwords?</string>
+	<string name="yes">Yes</string>
+	<string name="cancel">Cancel</string>
+	<string name="saved">Saved</string>
+	<string name="delete_wifi_network_msg">Do you want to delete this Wifi network?</string>
+	<string name="saved_networks">Saved networks</string>
+	<string name="remembered_networks">Remembered networks</string>
+</resources>

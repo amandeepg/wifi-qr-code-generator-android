@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR Code Generator</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Ekkert</string>
+	<string name="auth_type">Auðkenning Tegund</string>
+	<string name="network_name">Network Name (SSID)</string>
+	<string name="network_password">Network Lykilorð</string>
+	<string name="generate">Mynda</string>
+	<string name="no_name">Þú hefur ekki skilgreint net nafn.</string>
+	<string name="no_pass">Þú hefur ekki tilgreint lykilorð.</string>
+	<string name="save">Vista</string>
+	<string name="saved_ssids">Vistað SSIDs</string>
+	<string name="saveds_title">Vistaða aðgangsstaði</string>
+	<string name="saved_access_points">Vistaða aðgangsstaði</string>
+	<string name="share_qr">Share QR kóða</string>
+	<string name="select">Veldu</string>
+	<string name="delete">Eyða</string>
+</resources>

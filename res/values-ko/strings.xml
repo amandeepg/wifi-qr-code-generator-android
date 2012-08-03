@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">와이파이 QR 코드 생성기</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">없음</string>
+	<string name="auth_type">인증 유형</string>
+	<string name="network_name">네트워크 이름 (SSID)</string>
+	<string name="network_password">네트워크 비밀 번호</string>
+	<string name="generate">생성</string>
+	<string name="no_name">당신은 네트워크 이름을 지정하지 않았습니다.</string>
+	<string name="no_pass">당신은 암호를 지정하지 않았습니다.</string>
+	<string name="save">저장</string>
+	<string name="share_qr">공유 QR 코드</string>
+	<string name="root_detected_message">루트 액세스 장치에서 발견되었습니다. 이 응용 프로그램이 저장된 와이파이 네트워크와 암호에 액세스할 수 있도록 하시겠습니까?</string>
+	<string name="yes">예</string>
+	<string name="cancel">취소할 수 있습니다</string>
+	<string name="saved">저장되었습니다</string>
+	<string name="delete_wifi_network_msg">이 와이파이 네트워크를 삭제하시겠습니까?</string>
+	<string name="saved_networks">네트워크 저장되었습니다</string>
+	<string name="remembered_networks">네트워크를 기억</string>
+</resources>

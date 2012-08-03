@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi Postal QR dèlko</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Okenn</string>
+	<string name="auth_type">Kalite Otantifikasyon</string>
+	<string name="network_name">Non Network (ssid)</string>
+	<string name="network_password">Rezo Password</string>
+	<string name="generate">Jenere</string>
+	<string name="no_name">Ou pa gen espesifye yon non rezo-a.</string>
+	<string name="no_pass">Ou pa gen espesifye yon modpas.</string>
+	<string name="save">Save</string>
+	<string name="saved_ssids">Sove SSIDs</string>
+	<string name="saveds_title">Sove Pwen Aksè</string>
+	<string name="saved_access_points">Sove aksè pwen</string>
+	<string name="share_qr">Share Postal QR</string>
+	<string name="select">Chwazi</string>
+	<string name="delete">Delete</string>
+</resources>

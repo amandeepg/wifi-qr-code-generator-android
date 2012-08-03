@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi generatore QR</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Nessuno</string>
+	<string name="auth_type">Tipo di autenticazione</string>
+	<string name="network_name">Nome rete (SSID)</string>
+	<string name="network_password">Password di rete</string>
+	<string name="generate">Generare</string>
+	<string name="no_name">Non è stato specificato un nome di rete.</string>
+	<string name="no_pass">Non è stata specificata una password.</string>
+	<string name="save">Salvare</string>
+	<string name="share_qr">Condividi QR Code</string>	
+	<string name="root_detected_message">L\'accesso di root è stato rilevato sul dispositivo. Volete consentire a questa applicazione per accedere reti salvate Wifi e password?</string>
+	<string name="yes">Sì</string>
+	<string name="cancel">Annulla</string>
+	<string name="saved">Salvate</string>
+	<string name="delete_wifi_network_msg">Vuoi eliminare questa rete Wifi?</string>
+	<string name="saved_networks">Reti salvate</string>
+	<string name="remembered_networks">Reti ricordato</string>
+</resources>

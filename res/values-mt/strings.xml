@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi Ġeneratur QR Kodiċi</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Xejn</string>
+	<string name="auth_type">Tip Awtentikazzjoni</string>
+	<string name="network_name">Isem tan-netwerk (SSID)</string>
+	<string name="network_password">Password netwerk</string>
+	<string name="generate">Iġġenera</string>
+	<string name="no_name">Inti ma jkunux speċifikati l-isem tan-network.</string>
+	<string name="no_pass">Inti għandek mhux speċifikat password.</string>
+	<string name="save">Ħlief</string>
+	<string name="saved_ssids">SSIDs Ssejvjata</string>
+	<string name="saveds_title">Punti ta \'Aċċess Ssejvjata</string>
+	<string name="saved_access_points">Punti ta \'aċċess Ssejvjata</string>
+	<string name="share_qr">Kodiċi QR sehem</string>
+	<string name="select">Agħżel</string>
+	<string name="delete">Ħassar</string>
+</resources>

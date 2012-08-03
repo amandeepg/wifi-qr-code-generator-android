@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">WifiのQRコードジェネレータ</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">なし</string>
+	<string name="auth_type">認証の種類</string>
+	<string name="network_name">ネットワーク名（SSID）</string>
+	<string name="network_password">ネットワークパスワード</string>
+	<string name="generate">生成</string>
+	<string name="no_name">あなたは、ネットワーク名を指定していません。</string>
+	<string name="no_pass">あなたはパスワードを指定していない。</string>
+	<string name="save">保存</string>
+	<string name="saved_ssids">保存されたSSIDを</string>
+	<string name="saveds_title">保存されたアクセスポイント</string>
+	<string name="saved_access_points">保存されたアクセスポイント</string>
+	<string name="share_qr">シェアQRコード</string>
+	<string name="select">選択してください</string>
+	<string name="delete">削除</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR koda Generator</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Noben</string>
+	<string name="auth_type">Tip overjanja</string>
+	<string name="network_name">Network Name (SSID)</string>
+	<string name="network_password">Mreža Geslo</string>
+	<string name="generate">Ustvari</string>
+	<string name="no_name">Niste navedli ime omrežja.</string>
+	<string name="no_pass">Niste navedli gesla.</string>
+	<string name="save">Shrani</string>
+	<string name="saved_ssids">Shranjene SSIDs</string>
+	<string name="saveds_title">Shranjene dostopne točke</string>
+	<string name="saved_access_points">Shranjene dostopne točke</string>
+	<string name="share_qr">Share QR koda</string>
+	<string name="select">Izberi</string>
+	<string name="delete">Izbriši</string>
+</resources>

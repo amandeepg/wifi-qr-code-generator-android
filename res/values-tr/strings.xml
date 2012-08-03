@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR Code Generator</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Hiçbiri</string>
+	<string name="auth_type">Kimlik Doğrulama Türü</string>
+	<string name="network_name">Ağ Adı (SSID)</string>
+	<string name="network_password">Network Password</string>
+	<string name="generate">Oluşturmak</string>
+	<string name="no_name">Bir ağ adı belirtmediniz.</string>
+	<string name="no_pass">Bir şifre belirtmediniz.</string>
+	<string name="save">Kurtarmak</string>
+	<string name="saved_ssids">Kayıtlı SSID</string>
+	<string name="saveds_title">Kayıtlı Erişim Noktaları</string>
+	<string name="saved_access_points">Kayıtlı erişim noktaları</string>
+	<string name="share_qr">Hisse QR Kanunu</string>
+	<string name="select">Seçmek</string>
+	<string name="delete">Silmek</string>
+</resources>

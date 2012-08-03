@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wi-fi QR Генератор кода</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Ни один</string>
+	<string name="auth_type">Тип аутентификации</string>
+	<string name="network_name">Имя сети (SSID)</string>
+	<string name="network_password">Пароль сети</string>
+	<string name="generate">Генерировать</string>
+	<string name="no_name">Вы не указали имя сети.</string>
+	<string name="no_pass">Вы не указали пароль.</string>
+	<string name="save">Экономить</string>
+	<string name="share_qr">Доля QR-код</string>
+	<string name="root_detected_message">Корневой доступ был обнаружен на вашем устройстве. Хотели бы Вы, чтобы позволить этому приложению доступ к Wi-fi сети сохранены и пароли?</string>
+	<string name="yes">Да</string>
+	<string name="cancel">Отмена</string>
+	<string name="saved">Сохраненные</string>
+	<string name="delete_wifi_network_msg">Вы действительно хотите удалить этот Wi-Fi сеть?</string>
+	<string name="saved_networks">Сохраненные сети</string>
+	<string name="remembered_networks">Вспомнил сетей</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">واي فاي مولد رمز ريال قطري</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">لا شيء</string>
+	<string name="auth_type">نوع المصادقة</string>
+	<string name="network_name">اسم الشبكة (SSID)</string>
+	<string name="network_password">كلمة الشبكة</string>
+	<string name="generate">تولد</string>
+	<string name="no_name">لديك لم يتم تحديد اسم الشبكة.</string>
+	<string name="no_pass">لديك لم يتم تحديد كلمة السر.</string>
+	<string name="save">حفظ</string>
+	<string name="saved_ssids">حفظ معرفات مجموعة الخدمات</string>
+	<string name="saveds_title">نقاط الوصول المحفوظة</string>
+	<string name="saved_access_points">نقاط الوصول المحفوظة</string>
+	<string name="share_qr">ريال قطري قانون حصة</string>
+	<string name="select">حدد</string>
+	<string name="delete">حذف</string>
+	
+	<string name="root_detected_message">Root access has been detected on your device. Would you like to allow this application to access your saved Wifi networks and passwords?</string>
+	<string name="yes">Yes</string>
+	<string name="cancel">Cancel</string>
+	<string name="saved">Saved</string>
+	<string name="delete_wifi_network_msg">Do you want to delete this Wifi network?</string>
+	<string name="saved_networks">Saved networks</string>
+	<string name="remembered_networks">Remembered networks</string>
+</resources>

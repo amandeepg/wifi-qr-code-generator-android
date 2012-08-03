@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR Code Generator</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Egyik sem</string>
+	<string name="auth_type">Hitelesítés típusa</string>
+	<string name="network_name">Hálózat neve (SSID)</string>
+	<string name="network_password">Hálózati jelszó</string>
+	<string name="generate">Generálása</string>
+	<string name="no_name">Nem adtál meg a hálózat nevét.</string>
+	<string name="no_pass">Nem adott meg jelszót.</string>
+	<string name="save">Kivéve</string>
+	<string name="saved_ssids">Mentett SSID</string>
+	<string name="saveds_title">Mentett hozzáférési pontok</string>
+	<string name="saved_access_points">Mentett hozzáférési pontok</string>
+	<string name="share_qr">Megosztás QR kód</string>
+	<string name="select">Válasszon</string>
+	<string name="delete">Töröl</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Gineadóir Cód Wifi QR</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Dada</string>
+	<string name="auth_type">Cineál Fíordheimhnithe</string>
+	<string name="network_name">Ainm an Líonra (SSID)</string>
+	<string name="network_password">Líonra Pasfhocal</string>
+	<string name="generate">Gin</string>
+	<string name="no_name">Níor thug tú ainm sonraithe líonra.</string>
+	<string name="no_pass">Níor thug tú sonraithe focal faire.</string>
+	<string name="save">Sábháil</string>
+	<string name="saved_ssids">SSIDs Sábháilte</string>
+	<string name="saveds_title">Pointí Rochtana Sábháilte</string>
+	<string name="saved_access_points">Pointí rochtana Sábháilte</string>
+	<string name="share_qr">QR Code Comhroinn</string>
+	<string name="select">Roghnaigh</string>
+	<string name="delete">Scrios</string>
+</resources>

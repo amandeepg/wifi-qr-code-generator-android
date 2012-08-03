@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="securityarray">
+		<item>@string/wpa</item>
+		<item>@string/wep</item>
+		<item>@string/none</item>
+	</string-array>
+</resources>

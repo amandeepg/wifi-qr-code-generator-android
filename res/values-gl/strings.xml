@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Xerador de código QR Wifi</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Ningún</string>
+	<string name="auth_type">Tipo de autenticación</string>
+	<string name="network_name">Nome de rede (SSID)</string>
+	<string name="network_password">Contrasinal de rede</string>
+	<string name="generate">Xerar</string>
+	<string name="no_name">Non especificou un nome de rede.</string>
+	<string name="no_pass">Non especificou un contrasinal.</string>
+	<string name="save">Gardar</string>
+	<string name="saved_ssids">SSIDs salvo</string>
+	<string name="saveds_title">Salvo Puntos de Acceso</string>
+	<string name="saved_access_points">Salvo os puntos de acceso</string>
+	<string name="share_qr">QR Code compartir</string>
+	<string name="select">Seleccionar</string>
+	<string name="delete">Borrar</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR Mã Generator</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Không ai</string>
+	<string name="auth_type">Xác thực Loại</string>
+	<string name="network_name">Tên mạng (SSID)</string>
+	<string name="network_password">Mạng mật khẩu</string>
+	<string name="generate">Tạo</string>
+	<string name="no_name">Bạn không có quy định một tên mạng.</string>
+	<string name="no_pass">Bạn không có quy định một mật khẩu.</string>
+	<string name="save">Lưu</string>
+	<string name="saved_ssids">Lưu SSID</string>
+	<string name="saveds_title">Lưu Điểm truy cập</string>
+	<string name="saved_access_points">Lưu các điểm truy cập</string>
+	<string name="share_qr">Mã chia sẻ QR</string>
+	<string name="select">Chọn</string>
+	<string name="delete">Xóa</string>
+</resources>

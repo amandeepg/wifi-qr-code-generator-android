@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<!--    <item
+        android:id="@+id/saved_ssids"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_view"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/saved_access_points"
+        android:visible="true">
+    </item> -->
+    <item
+        android:id="@+id/share_qr_code"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_share"
+        android:showAsAction="always|withText"
+        android:title="@string/share_qr"
+        android:visible="true"
+        android:actionProviderClass="com.actionbarsherlock.widget.ShareActionProvider">
+    </item>
+</menu>
+
+<!-- android:actionProviderClass="com.actionbarsherlock.widget.ShareActionProvider"-->

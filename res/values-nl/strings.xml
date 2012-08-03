@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wifi QR Code Generator</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Geen</string>
+	<string name="auth_type">Authentication Type</string>
+	<string name="network_name">Netwerknaam (SSID)</string>
+	<string name="network_password">Netwerkwachtwoord</string>
+	<string name="generate">Het genereren van</string>
+	<string name="no_name">U hebt geen opgegeven netwerknaam.</string>
+	<string name="no_pass">U heeft niet opgegeven een wachtwoord.</string>
+	<string name="save">Besparen</string>
+	<string name="saved_ssids">Opgeslagen SSID\'s</string>
+	<string name="saveds_title">Opgeslagen Access Points</string>
+	<string name="saved_access_points">Opgeslagen toegangspunten</string>
+	<string name="share_qr">Deel QR Code</string>
+	<string name="select">Kiezen</string>
+	<string name="delete">Verwijderen</string>
+</resources>

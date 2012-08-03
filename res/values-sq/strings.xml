@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">WiFi Generator QR Code</string>
+	<string name="wep">WEP</string>
+	<string name="wpa">WPA/WPA2</string>
+	<string name="none">Asnjë</string>
+	<string name="auth_type">Lloji Authentication</string>
+	<string name="network_name">Emri Network (SSID)</string>
+	<string name="network_password">Fjalëkalimi Rrjeti</string>
+	<string name="generate">Generate</string>
+	<string name="no_name">Ju nuk keni dhënë një emër të rrjetit.</string>
+	<string name="no_pass">Ju nuk keni dhënë një fjalëkalim.</string>
+	<string name="save">Ruaj</string>
+	<string name="saved_ssids">SSIDs Saved</string>
+	<string name="saveds_title">Pikët Saved Access</string>
+	<string name="saved_access_points">Pikat e ruajtura të hyrjes</string>
+	<string name="share_qr">Code Share QR</string>
+	<string name="select">Përzgjedh</string>
+	<string name="delete">Fshij</string>
+</resources>
