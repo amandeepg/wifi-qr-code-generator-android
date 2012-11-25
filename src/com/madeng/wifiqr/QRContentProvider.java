@@ -8,9 +8,11 @@ import java.io.IOException;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.util.Log;
 
 public class QRContentProvider extends ContentProvider {
@@ -28,7 +30,7 @@ public class QRContentProvider extends ContentProvider {
 	}
 
 	@Override
-	public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
+	public ParcelFileDescriptor openFile(Uri uriNULL, String modeNULL) throws FileNotFoundException {
 		try {
 			File f = File.createTempFile("wifi_qr_code", ".jpg", getContext().getFilesDir());
 
@@ -56,7 +58,9 @@ public class QRContentProvider extends ContentProvider {
 
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		return null;
+        MatrixCursor mc = new MatrixCursor(new String[]{MediaStore.Images.Media.DATA, MediaStore.Images.Media.MIME_TYPE, "title"});
+        mc.addRow(new String[]{"Wifi QR Code", "image/jpeg", "Wifi QR Code"});
+        return mc;
 	}
 
 	@Override

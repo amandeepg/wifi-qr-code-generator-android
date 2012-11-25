@@ -33,7 +33,7 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.madeng.wifiqr.utils.QRUtils;
-import com.stericson.RootTools.RootTools;
+import eu.chainfire.libsuperuser.Shell;
 import org.acra.ErrorReporter;
 
 import java.io.File;
@@ -208,7 +208,6 @@ public class GenQRFragment extends SherlockFragment {
     name.dismissDropDown();
 
     if (verifyWifi() != null) {
-      TabActivity.tracker.trackPageView("/chooseSaved");
       generateQR(null);
       return true;
     } else
@@ -272,16 +271,6 @@ public class GenQRFragment extends SherlockFragment {
     if (assumeNOTRooted)
       return;
 
-    RootTools.debugMode = false;
-
-    // Not needed
-    if (hasApp("com.noshufou.android.su") || hasApp("com.noshufou.android.su.elite")) {
-      Log.d(TAG, "has superuser.apk");
-      ErrorReporter.getInstance().putCustomData("~C Superuser.apk", "true");
-    } else {
-      Log.d(TAG, "has superuser.apk NO");
-      ErrorReporter.getInstance().putCustomData("~C Superuser.apk", "false");
-    }
     // Set to false initially
     SavedFragment.showRoot = false;
     int perm = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext()) //
@@ -323,36 +312,27 @@ public class GenQRFragment extends SherlockFragment {
   }
 
   private void readWifiFiles() {
-    TabActivity.tracker.trackPageView("/readRootedWifi");
-    try {
-      List<String> f1 = RootTools.sendShell("cat /data/misc/wifi/wpa_supplicant.conf", -1);
-      // Size will be greater than 2, when some networks exist
-      if (f1.size() > 2)
-        parseNetworks(f1);
-      else
-        Log.d(TAG, "first not longer than 2 " + f1.toString());
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+      String catScript =
+              "if [ -f /data/misc/wifi/wpa_supplicant.conf ] \n" +
+              "then \n" +
+              "cat /data/misc/wifi/wpa_supplicant.conf \n" +
+              "fi \n"+
+              "if [ -f /data/wifi/bcm_supp.conf ] \n" +
+              "then \n" +
+              "cat /data/wifi/bcm_supp.conf \n" +
+              "fi \n"+
+              "if [ -f /data/misc/wifi/wpa.conf ] \n" +
+              "then \n" +
+              "cat /data/misc/wifi/wpa.conf \n" +
+              "fi \n";
 
     try {
-      List<String> f2 = RootTools.sendShell("cat /data/wifi/bcm_supp.conf", -1);
+      List<String> result = Shell.SU.run(catScript);
       // Size will be greater than 2, when some networks exist
-      if (f2.size() > 2)
-        parseNetworks(f2);
+      if (result.size() > 2)
+        parseNetworks(result);
       else
-        Log.d(TAG, "2nd not longer than 2 " + f2.toString());
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    try {
-      List<String> f3 = RootTools.sendShell("cat /data/misc/wifi/wpa.conf", -1);
-      // Size will be greater than 2, when some networks exist
-      if (f3.size() > 2)
-        parseNetworks(f3);
-      else
-        Log.d(TAG, "3rd not longer than 2 " + f3.toString());
+        Log.d(TAG, "not longer than 2 " + result.toString());
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -491,7 +471,6 @@ public class GenQRFragment extends SherlockFragment {
     if (intent == null)
       intent = shareIntent;
 
-    TabActivity.tracker.trackPageView("/share");
     Uri uri = Uri.parse(QRContentProvider.CONTENT_URI + name.getText().toString() + "_code.jpg");
     Log.d(TAG, "uri = " + uri);
     intent.putExtra(Intent.EXTRA_STREAM, uri);
@@ -556,9 +535,6 @@ public class GenQRFragment extends SherlockFragment {
     if (content == null)
       return;
 
-    // Log.d(TAG, content);
-    TabActivity.tracker.trackPageView("/generate");
-
     // Hide progres spinner
     progressSpinner.setVisibility(View.VISIBLE);
     iv.setVisibility(View.GONE);
@@ -601,8 +577,6 @@ public class GenQRFragment extends SherlockFragment {
     vnull = null;
     // If info is valid
     if (verifyWifi() != null) {
-      TabActivity.tracker.trackPageView("/save");
-
       String nameText = name.getText().toString();
       String passText = pass.getText().toString();
       int i = auth.getSelectedItemPosition();

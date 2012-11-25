@@ -16,8 +16,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.actionbarsherlock.widget.ShareActionProvider.OnShareTargetSelectedListener;
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-import com.mopub.mobileads.MoPubView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,10 +32,6 @@ public class TabActivity extends SherlockFragmentActivity {
 
 	private ViewPager mViewPager;
 	public TabsAdapter mTabsAdapter;
-
-	private MoPubView mpv;
-
-	public static GoogleAnalyticsTracker tracker;
 
 	@SuppressWarnings("rawtypes")
 	/**
@@ -58,17 +52,6 @@ public class TabActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.actionbar_tabs_pager);
-
-		// Set up ad
-		mpv = (MoPubView) findViewById(R.id.adview);
-		mpv.setAdUnitId("agltb3B1Yi1pbmNyDQsSBFNpdGUY6MGUDQw");
-		mpv.loadAd();
-
-		// Set up Google Analytics
-		tracker = GoogleAnalyticsTracker.getInstance();
-
-		tracker.startNewSession("UA-24710997-3", 20, this);
-		tracker.trackPageView("/start");
 
 		// Use tabs for navigation
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -128,17 +111,12 @@ public class TabActivity extends SherlockFragmentActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		mpv.destroy();
-		tracker.dispatch();
-		tracker.stopSession();
 		mTabsAdapter.clear();
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.d(TAG, "onPause");
-		tracker.dispatch();
 	}
 
 	/**

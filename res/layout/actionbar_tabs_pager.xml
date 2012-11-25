@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:id="@+id/linlay"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -11,11 +12,11 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.mopub.mobileads.MoPubView
-        android:id="@+id/adview"
+    <com.google.ads.AdView android:id="@+id/adView"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:visibility="visible" >
-    </com.mopub.mobileads.MoPubView>
+        ads:adUnitId="a14e4b427a0c53e"
+        ads:adSize="SMART_BANNER"
+        ads:loadAdOnCreate="true"/>
 
 </LinearLayout>

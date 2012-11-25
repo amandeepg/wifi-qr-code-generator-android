@@ -1,6 +1,7 @@
 .DS_Store
 bin
 out
-.idea
+.idea/workspace.xml
 *.iml
+gen
 
