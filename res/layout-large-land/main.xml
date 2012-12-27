@@ -67,6 +67,13 @@
                 android:text="@string/generate" >
             </Button>
         </LinearLayout>
+
+        <fragment android:name="com.madeng.wifiqr.SavedFragment"
+            android:id="@+id/savedFragLargeLand"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp">
+        </fragment>
     </LinearLayout>
 
     <LinearLayout

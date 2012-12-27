@@ -1,10 +1,5 @@
 package com.madeng.wifiqr;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -14,6 +9,11 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Log;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class QRContentProvider extends ContentProvider {
 	public static final Uri CONTENT_URI = Uri.parse("content://com.madeng.wifiqr/");
@@ -26,17 +26,17 @@ public class QRContentProvider extends ContentProvider {
 
 	@Override
 	public String getType(Uri uri) {
-		return "image/jpeg";
+		return "image/png";
 	}
 
 	@Override
 	public ParcelFileDescriptor openFile(Uri uriNULL, String modeNULL) throws FileNotFoundException {
 		try {
-			File f = File.createTempFile("wifi_qr_code", ".jpg", getContext().getFilesDir());
+			File f = File.createTempFile(GenQRFragment.ssidName + "-code", ".png", getContext().getFilesDir());
 
 			FileOutputStream out = new FileOutputStream(f);
-			GenQRFragment.bmp.compress(Bitmap.CompressFormat.JPEG, 80, out);
-			Log.d(TAG, "compressing jpg");
+			GenQRFragment.bmp.compress(Bitmap.CompressFormat.PNG, 80, out);
+			Log.d(TAG, "compressing png");
 			out.close();
 
 			return ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);
@@ -59,7 +59,7 @@ public class QRContentProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         MatrixCursor mc = new MatrixCursor(new String[]{MediaStore.Images.Media.DATA, MediaStore.Images.Media.MIME_TYPE, "title"});
-        mc.addRow(new String[]{"Wifi QR Code", "image/jpeg", "Wifi QR Code"});
+        mc.addRow(new String[]{GenQRFragment.ssidName + "-QR-Code.png", "image/png", "Wifi QR Code"});
         return mc;
 	}
 

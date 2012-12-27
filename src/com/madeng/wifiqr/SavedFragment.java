@@ -59,13 +59,14 @@ public class SavedFragment extends SherlockListFragment {
       // If position is past the second header, minus 1 more
       if (position > secondHeader())
         position--;
-      position--;
     }
+
+    position--;
 
     // Switch to "generate" tab
     if (TabActivity.getQRFragment(this).chooseSaved(position)) {
-      // TabActivity.getTabActivity(this).mTabsAdapter.mTabHost.setCurrentTabByTag("simple1");
-      TabActivity.getTabActivity(this).mTabsAdapter.mViewPager.setCurrentItem(0);
+      if (TabActivity.getTabActivity(this).mTabsAdapter != null)
+        TabActivity.getTabActivity(this).mTabsAdapter.mViewPager.setCurrentItem(0);
     }
   }
 
@@ -78,7 +79,7 @@ public class SavedFragment extends SherlockListFragment {
 
       public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
         // Same logic as "onListItemClick"
-        final int position2 = showRoot ? position - 1 - (position > secondHeader() ? 1 : 0) : position;
+        final int position2 = showRoot ? (position - 1 - (position > secondHeader() ? 1 : 0)) : (position - 1);
 
         // As long as item is deletable (ie. not a remembered network
         // from Android)
@@ -114,7 +115,7 @@ public class SavedFragment extends SherlockListFragment {
    * @return location of second header
    */
   protected int secondHeader() {
-    // Iterate through the lsit and find the first isFromRoot network
+    // Iterate through the list and find the first isFromRoot network
     ArrayList<WifiObject> sw = GenQRFragment.savedWifis;
     for (int x = 0; x < sw.size(); x++) {
       if (sw.get(x).isFromRoot)
@@ -122,7 +123,7 @@ public class SavedFragment extends SherlockListFragment {
     }
     // If nothing was found, clearly there are no remembered networks, so
     // don't even show the headers
-    // This should never happen though
+    // This should never happen though - my bad, it does, lol
     showRoot = false;
     adapter.notifyDataSetChanged();
     // Dummy return
@@ -156,26 +157,29 @@ public class SavedFragment extends SherlockListFragment {
 
     @Override
     public int getCount() {
-      return super.getCount() + (showRoot ? 2 : 0);
+      return super.getCount() + 1 + (showRoot ? 1 : 0);
     }
 
     @Override
     public int getViewTypeCount() {
-      return super.getViewTypeCount() + (showRoot ? 1 : 0);
+      return super.getViewTypeCount() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
       if (showRoot) {
-        if (position == 0 || position == secondHeader())
+        if (position == secondHeader())
           return TYPE_SECTION_HEADER;
       }
+      if (position == 0)
+        return TYPE_SECTION_HEADER;
+
       return TYPE_SECTION_ITEM;
     }
 
     @Override
     public boolean areAllItemsEnabled() {
-      return !showRoot;
+      return false;
     }
 
     @Override
@@ -192,38 +196,37 @@ public class SavedFragment extends SherlockListFragment {
       View view = convertView;
       // Test if this is header, or decrement position if showing
       // remembered networks from root.
-      if (showRoot) {
-        // Get position of second header
-        int secondHeaderI = secondHeader();
-        // If this view should be a header..
-        if (position == 0 || position == secondHeaderI) {
-          // If the view is null, create it
-          if (view == null) {
-            LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = vi.inflate(android.R.layout.preference_category, null);
-          }
-          TextView tt = (TextView) view.findViewById(android.R.id.title);
-          // This is will be null if the convertView wasn't the type
-          // we needed (header type)
-          // This could happen if we screwed up telling android what
-          // type each position index was
-          if (tt == null)
-            // Try again, but this time force-create the view, by
-            // setting the view to null
-            return getView(positionOrig, null, parent);
-          // Sets the text for the headers depending on which it is
-          if (position == 0)
-            tt.setText(R.string.saved_networks);
-          else
-            tt.setText(R.string.remembered_networks);
-          return view;
+
+      // Get position of second header
+      int secondHeaderI = secondHeader();
+      // If this view should be a header..
+      if (position == 0 || (position == secondHeaderI && showRoot)) {
+        // If the view is null, create it
+        if (view == null) {
+          LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+          view = vi.inflate(android.R.layout.preference_category, null);
         }
-
-        if (position > secondHeaderI)
-          position--;
-
-        position--;
+        TextView tt = (TextView) view.findViewById(android.R.id.title);
+        // This is will be null if the convertView wasn't the type
+        // we needed (header type)
+        // This could happen if we screwed up telling android what
+        // type each position index was
+        if (tt == null)
+          // Try again, but this time force-create the view, by
+          // setting the view to null
+          return getView(positionOrig, null, parent);
+        // Sets the text for the headers depending on which it is
+        if (position == 0)
+          tt.setText(R.string.saved_networks);
+        else
+          tt.setText(R.string.remembered_networks);
+        return view;
       }
+
+      if (position > secondHeaderI && showRoot)
+        position--;
+
+      position--;
 
       if (view == null) {
         LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

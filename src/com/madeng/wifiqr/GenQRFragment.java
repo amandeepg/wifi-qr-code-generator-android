@@ -4,9 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
+import android.net.http.AndroidHttpClient;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -15,61 +16,67 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Display;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.madeng.wifiqr.utils.QRUtils;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import eu.chainfire.libsuperuser.Shell;
 import org.acra.ErrorReporter;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
 
 public class GenQRFragment extends SherlockFragment {
 
+  public static final ArrayList<WifiObject> savedWifis = new ArrayList<WifiObject>();
+  /**
+   * For debugging. Force app to not look for remembered networks.
+   */
+  public static final boolean assumeNOTRooted = false;
   private static final int PERMISSION_UNKNOWN = 0;
   private static final int PERMISSION_GIVEN = 1;
   private static final int PERMISSION_DENIED = 2;
-
   private static final String TAG = "GenQRFragment";
-  private ImageView iv;
+  public static Bitmap bmp;
+  public static String ssidName;
+  public static Typeface face;
+  /**
+   * Only laod from root once, so this gets checked, and set to true once its
+   * been run once.
+   */
+  private static boolean loadedFromRoot = false;
+  private static Intent shareIntent = null;
+  private static boolean loadedFromDisk = false;
   AutoCompleteTextView name;
+  Runnable postGenerateQRRunnable;
+  Runnable sharingRunnable;
+  private ImageView iv;
   private EditText pass;
   private Spinner auth;
   private View progressSpinner;
   private Handler mHandler = new Handler();
   private int qrSize;
-  public static Bitmap bmp;
-  public static final ArrayList<WifiObject> savedWifis = new ArrayList<WifiObject>();
-  Runnable postGenerateQRRunnable;
-  Runnable sharingRunnable;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     setHasOptionsMenu(true);
 
-    View v = inflater.inflate(R.layout.main, container, false);
+    final View v = inflater.inflate(R.layout.main, container, false);
 
     // Use smallest of width or height for side of QR code
     Display display = getActivity().getWindowManager().getDefaultDisplay();
@@ -95,18 +102,23 @@ public class GenQRFragment extends SherlockFragment {
 
     WifiManager wifi = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
     ArrayList<String> confSSIDs = new ArrayList<String>();
-    for (WifiConfiguration conf : wifi.getConfiguredNetworks()) {
-      confSSIDs.add(conf.SSID.replace("\"", ""));
+    if (wifi != null) {
+      List<WifiConfiguration> configuredNetworks = wifi.getConfiguredNetworks();
+      if (configuredNetworks != null)
+        for (WifiConfiguration conf : configuredNetworks) {
+          confSSIDs.add(conf.SSID.replace("\"", ""));
+        }
+
+      List<ScanResult> scanResults = wifi.getScanResults();
+      if (scanResults != null)
+        for (ScanResult scanr : scanResults) {
+          confSSIDs.add(scanr.SSID.replace("\"", ""));
+        }
+
+      confSSIDs = new ArrayList<String>(new HashSet<String>(confSSIDs));
+      Collections.sort(confSSIDs);
+      Log.d(TAG, "confSSIDs = " + confSSIDs.toString());
     }
-
-    if (wifi.getScanResults() != null)
-      for (ScanResult scanr : wifi.getScanResults()) {
-        confSSIDs.add(scanr.SSID.replace("\"", ""));
-      }
-
-    confSSIDs = new ArrayList<String>(new HashSet<String>(confSSIDs));
-    Collections.sort(confSSIDs);
-    Log.d(TAG, "confSSIDs = " + confSSIDs.toString());
 
     name.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.actv_item, confSSIDs));
     name.setThreshold(1);
@@ -114,10 +126,17 @@ public class GenQRFragment extends SherlockFragment {
     Log.d(TAG, "onSaveInstanceState = " + savedInstanceState);
 
     WifiInfo info = wifi.getConnectionInfo();
-    if (savedInstanceState == null && info.getSSID() != null) {
+    if (savedInstanceState == null && info != null && info.getSSID() != null && info.getMacAddress() != null) {
       name.setText(info.getSSID().replace("\"", ""));
       pass.requestFocus();
     }
+
+    name.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        GenQRFragment.this.chooseSaved(name.getText().toString());
+      }
+    });
 
     name.dismissDropDown();
 
@@ -133,7 +152,7 @@ public class GenQRFragment extends SherlockFragment {
     });
 
     // Set up generate button's action
-    ((Button) v.findViewById(R.id.genBut)).setOnClickListener(new View.OnClickListener() {
+    v.findViewById(R.id.genBut).setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View v) {
@@ -142,7 +161,7 @@ public class GenQRFragment extends SherlockFragment {
     });
 
     // Set up save button's action
-    ((Button) v.findViewById(R.id.saveBut)).setOnClickListener(new View.OnClickListener() {
+    v.findViewById(R.id.saveBut).setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View v) {
@@ -158,6 +177,59 @@ public class GenQRFragment extends SherlockFragment {
       }
     };
 
+    face = Typeface.createFromAsset(getTabActivity().getAssets(), "fonts/Roboto-Light.ttf");
+
+    new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        try {
+          HttpGet request = new HttpGet("http://api.ipinfodb.com/v3/ip-country/?key=e155a4059c75448e8103503654491b649ef3a6d9ea68ee0a8150a02a514786f7&format=json");
+          HttpResponse response = new DefaultHttpClient().execute(request);
+
+          // Check if server response is valid
+          StatusLine status = response.getStatusLine();
+          if (status.getStatusCode() != 200) {
+            throw new IOException("Invalid response from server: " + status.toString());
+          }
+
+          // Pull content stream from response
+          InputStream inputStream = response.getEntity().getContent();
+
+          ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+          // Read response into a buffered stream
+          int readBytes = 0;
+          byte[] sBuffer = new byte[512];
+          while ((readBytes = inputStream.read(sBuffer)) != -1) {
+            content.write(sBuffer, 0, readBytes);
+          }
+
+          // Return result from buffered stream
+          String dataAsString = new String(content.toByteArray());
+
+          JSONObject jsonOb = new JSONObject(dataAsString);
+          String countryCode = jsonOb.getString("countryCode"),
+                 lang = Locale.getDefault().getLanguage();
+          Log.d(TAG, "jsonOb = " + countryCode + " " + lang);
+
+          if (! ((countryCode.equals("CA") || countryCode.equals("US") || countryCode.equals("USA")) && lang.equals("en")) ) {
+            mHandler.post(new Runnable() {
+
+              @Override
+              public void run() {
+                getTabActivity().findViewById(R.id.adView).setVisibility(View.VISIBLE);
+              }
+            });
+          }
+
+        } catch (Exception e) {
+          Log.d(TAG, "networkGeoThread error", e);
+        }
+
+      }
+    }).start();
+
     loadSavedWifisFromDisk();
 
     Log.d(TAG, "onCreateView");
@@ -171,6 +243,14 @@ public class GenQRFragment extends SherlockFragment {
     // Saves current tab
 
     Log.d(TAG, "onSaveInstanceState");
+  }
+
+  public boolean chooseSaved(String ssid){
+    for (WifiObject w: savedWifis) {
+      if (w.ssid.equals(ssid))
+        return chooseSaved(w);
+    }
+    return false;
   }
 
   /**
@@ -232,33 +312,6 @@ public class GenQRFragment extends SherlockFragment {
     return false;
 
   }
-
-  /**
-   * Checks if device has a certain app installed
-   *
-   * @param s app's package name
-   * @return if device installed, or not
-   */
-  private Boolean hasApp(String s) {
-    PackageManager pm = getActivity().getPackageManager();
-    try {
-      pm.getPackageInfo(s, PackageManager.GET_ACTIVITIES);
-      return true;
-    } catch (PackageManager.NameNotFoundException e) {
-      return false;
-    }
-  }
-
-  /**
-   * Only laod from root once, so this gets checked, and set to true once its
-   * been run once.
-   */
-  private static boolean loadedFromRoot = false;
-
-  /**
-   * For debugging. Force app to not look for remembered networks.
-   */
-  public static final boolean assumeNOTRooted = false;
 
   @Override
   public void onStart() {
@@ -447,8 +500,6 @@ public class GenQRFragment extends SherlockFragment {
     return haystack;
   }
 
-  private static Intent shareIntent = null;
-
   public void onShare(Intent intent) {
     // If no qr code currently being shown, try to generate it
     if (bmp == null) {
@@ -524,33 +575,103 @@ public class GenQRFragment extends SherlockFragment {
     return content;
   }
 
+  public void generateQR(View vnull) {
+    generateQR(vnull, -1);
+  }
+
   /**
    * Generates QR code and displays it
    *
    * @param vnull
    */
-  public void generateQR(View vnull) {
+  public void generateQR(View vnull, final int animDuration) {
     vnull = null;
     final String content = verifyWifi();
     if (content == null)
       return;
 
-    // Hide progres spinner
-    progressSpinner.setVisibility(View.VISIBLE);
-    iv.setVisibility(View.GONE);
+    ObjectAnimator progressFadeIn = ObjectAnimator.ofFloat(progressSpinner, "alpha", 0, 1);
+
+    if (iv.getVisibility() == View.VISIBLE) {
+      AnimatorSet set = new AnimatorSet();
+      ObjectAnimator qrOut = ObjectAnimator.ofFloat(iv, "translationX", 0, iv.getWidth()/2);
+      set.play(qrOut).before(progressFadeIn);
+      set.play(qrOut).with(ObjectAnimator.ofFloat(iv, "alpha", 1, 0));
+      qrOut.addListener(new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationEnd(Animator animator) {
+          iv.setVisibility(View.GONE);
+          progressSpinner.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationStart(Animator animator) {
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animator) {
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animator) {
+        }
+      });
+      if (animDuration != -1)
+        set.setDuration(animDuration);
+      else
+        set.setDuration(150);
+      set.start();
+    } else {
+      iv.setVisibility(View.GONE);
+      progressSpinner.setVisibility(View.VISIBLE);
+      if (animDuration != -1)
+        progressFadeIn.setDuration(animDuration);
+      else
+        progressFadeIn.setDuration(150);
+      progressFadeIn.start();
+    }
 
     // Start lengthy operation in a background thread
     new Thread(new Runnable() {
       public void run() {
         // Gets QR code based on content string
-        bmp = QRUtils.createQrCode(content, qrSize);
+        bmp = Bitmap.createBitmap(qrSize, qrSize, Bitmap.Config.ARGB_8888);
+        QRUtils.createQrCode(content, qrSize, bmp, name.getText().toString(), getTabActivity());
 
         // Display the bitmap on the UI thread
         mHandler.post(new Runnable() {
           public void run() {
-            iv.setImageBitmap(bmp);
-            progressSpinner.setVisibility(View.GONE);
-            iv.setVisibility(View.VISIBLE);
+            iv.setImageBitmap (bmp);
+            ssidName = name.getText().toString().trim() ;
+            AnimatorSet set = new AnimatorSet();
+            ObjectAnimator progressFadeOut = ObjectAnimator.ofFloat(progressSpinner, "alpha", 1, 0);
+            ObjectAnimator ivFadeIn = ObjectAnimator.ofFloat(iv, "alpha", 0, 1);
+            set.play(progressFadeOut).before(ivFadeIn);
+            set.play(ivFadeIn).with(ObjectAnimator.ofFloat(iv, "translationY", 150, 0));
+            set.play(ivFadeIn).with(ObjectAnimator.ofFloat(iv, "translationX", 0, 0));
+            set.play(ivFadeIn).with(ObjectAnimator.ofFloat(iv, "rotation", 5, 0));
+            progressFadeOut.addListener(new Animator.AnimatorListener() {
+              @Override
+              public void onAnimationEnd(Animator animator) {
+                progressSpinner.setVisibility(View.GONE);
+                iv.setVisibility(View.VISIBLE);
+              }
+
+              @Override
+              public void onAnimationStart(Animator animator) {
+              }
+
+              @Override
+              public void onAnimationCancel(Animator animator) {
+              }
+
+              @Override
+              public void onAnimationRepeat(Animator animator) {
+              }
+            });
+            if (animDuration != -1)
+              set.setDuration(animDuration);
+            set.start();
           }
         });
         // If anything to run afterwards, do that
@@ -604,6 +725,8 @@ public class GenQRFragment extends SherlockFragment {
       generateQR(null);
 
       saveSavedWifisToDisk();
+
+      Toast.makeText(getActivity(), R.string.saved_success, Toast.LENGTH_SHORT).show();
     }
   }
 
@@ -622,8 +745,6 @@ public class GenQRFragment extends SherlockFragment {
       Log.d(TAG, "saveSavedWifisToDisk error", e);
     }
   }
-
-  private static boolean loadedFromDisk = false;
 
   @SuppressWarnings("unchecked")
   /**
@@ -659,5 +780,9 @@ public class GenQRFragment extends SherlockFragment {
     } catch (Exception e) {
       Log.d(TAG, "saveSavedWifisToDisk error", e);
     }
+  }
+
+  private TabActivity getTabActivity() {
+    return TabActivity.getTabActivity(this);
   }
 }

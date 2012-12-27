@@ -16,9 +16,9 @@
 
 package com.google.zxing.common;
 
-import java.util.Hashtable;
-
 import com.google.zxing.DecodeHintType;
+
+import java.util.Hashtable;
 
 /**
  * Common string-related functions.

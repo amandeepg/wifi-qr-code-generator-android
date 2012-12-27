@@ -1,20 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">無線 QR碼生成器</string>
-	<string name="wep">WEP</string>
-	<string name="wpa">WPA/WPA2</string>
-	<string name="none">無</string>
-	<string name="auth_type">驗證類型</string>
-	<string name="network_name">網絡名稱（SSID）</string>
-	<string name="network_password">網絡密碼</string>
-	<string name="generate">生成</string>
-	<string name="no_name">您還沒有指定一個網絡名稱。</string>
-	<string name="no_pass">您還沒有指定一個密碼。</string>
-	<string name="save">保存</string>
-	<string name="saved_ssids">保存的SSID</string>
-	<string name="saveds_title">儲存的接入點</string>
-	<string name="saved_access_points">儲存的接入點</string>
-	<string name="share_qr">分享QR碼</string>
-	<string name="select">選擇</string>
-	<string name="delete">刪除</string>
+	<string name="app_name">"無線QR發電機"</string>
+	<string name="wep">"WEP"</string>
+	<string name="wpa">"WPA/WPA2"</string>
+	<string name="none">"无"</string>
+	<string name="auth_type">"身份驗證類型"</string>
+	<string name="network_name">"網絡名稱（SSID）"</string>
+	<string name="network_password">"網絡密碼"</string>
+	<string name="generate">"產生"</string>
+	<string name="no_name">"你有沒有指定的網絡名稱。"</string>
+	<string name="no_pass">"您還沒有指定一個密碼。"</string>
+	<string name="save">"儲存"</string>
+	<string name="share_qr">"分享QR碼"</string>
+	<string name="root_detected_message">"Root權限已檢測到您的設備上。你想允許此應用程序訪問您保存的WiFi網絡和密碼？"</string>
+	<string name="yes">"是"</string>
+	<string name="cancel">"取消"</string>
+	<string name="saved">"保存 "</string>
+	<string name="delete_wifi_network_msg">"你想刪除此WiFi網絡？"</string>
+	<string name="saved_networks">"保存的網絡"</string>
+	<string name="remembered_networks">"記得網絡"</string>
+    <string name="saved_success">"無線網絡成功保存。"</string>
 </resources>

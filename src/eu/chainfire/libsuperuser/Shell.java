@@ -16,15 +16,15 @@
 
 package eu.chainfire.libsuperuser;
 
+import android.os.Looper;
+import com.madeng.wifiqr.BuildConfig;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.os.Looper;
-import com.madeng.wifiqr.BuildConfig;
 
 /**
  * Class providing functionality to execute commands in a (root) shell 

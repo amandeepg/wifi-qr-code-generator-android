@@ -53,23 +53,27 @@ public class TabActivity extends SherlockFragmentActivity {
 
 		setContentView(R.layout.actionbar_tabs_pager);
 
-		// Use tabs for navigation
-		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    if (findViewById(R.id.pager) != null) {
+      // Use tabs for navigation
+      getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-		// Add tabs
-		ActionBar.Tab tab1 = getSupportActionBar().newTab().setText(R.string.generate);
-		ActionBar.Tab tab2 = getSupportActionBar().newTab().setText(R.string.saved);
+      // Add tabs
+      ActionBar.Tab tab1 = getSupportActionBar().newTab().setText(R.string.generate);
+      ActionBar.Tab tab2 = getSupportActionBar().newTab().setText(R.string.saved);
 
-		// Ties swiping action (View Pager) with tabs display (adapter)
-		mViewPager = (ViewPager) findViewById(R.id.pager);
-		mTabsAdapter = new TabsAdapter(this, getSupportActionBar(), mViewPager);
-		mTabsAdapter.addTab(tab1, GenQRFragment.class);
-		mTabsAdapter.addTab(tab2, SavedFragment.class);
+      // Ties swiping action (View Pager) with tabs display (adapter)
+      mViewPager = (ViewPager) findViewById(R.id.pager);
+      mTabsAdapter = new TabsAdapter(this, getSupportActionBar(), mViewPager);
+      mTabsAdapter.addTab(tab1, GenQRFragment.class);
+      mTabsAdapter.addTab(tab2, SavedFragment.class);
 
-		// Restores current tab
-		if (savedInstanceState != null) {
-			getSupportActionBar().setSelectedNavigationItem(savedInstanceState.getInt("index"));
-		}
+      // Restores current tab
+      if (savedInstanceState != null) {
+        getSupportActionBar().setSelectedNavigationItem(savedInstanceState.getInt("index"));
+      }
+    } else {
+
+    }
 	}
 
 	@Override

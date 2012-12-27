@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Wifi QR Code Generator</string>
-	<string name="wep">WEP</string>
-	<string name="wpa">WPA/WPA2</string>
-	<string name="none">Keiner</string>
-	<string name="auth_type">Authentifizierungstypen</string>
-	<string name="network_name">Netzwerks Name (SSID)</string>
-	<string name="network_password">Kennwort des Netzwerks</string>
-	<string name="generate">Erzeugen</string>
-	<string name="no_name">Sie haben nicht einen Netzwerk-Namen angegeben.</string>
-	<string name="no_pass">Sie haben kein Passwort angegeben.</string>
-	<string name="save">Sparen</string>
-	<string name="share_qr">Anteil QR Code</string>
-	<string name="root_detected_message">Root-Zugriff hat auf Ihrem Gerät erkannt wurde. Möchten Sie, damit diese Anwendung, um Ihre gespeicherten Wifi-Netzwerke und Passwörter zugreifen?</string>
-	<string name="yes">Ja</string>
-	<string name="cancel">Abbrechen</string>
-	<string name="saved">Gespeichert</string>
-	<string name="delete_wifi_network_msg">Wollen Sie diese Wifi-Netzwerk löschen?</string>
-	<string name="saved_networks">Gespeichert netzwerke</string>
-	<string name="remembered_networks">Erinnerte netwerke</string>
+	<string name="app_name">"WiFi QR Generator"</string>
+	<string name="wep">"WEP"</string>
+	<string name="wpa">"WPA/WPA2"</string>
+	<string name="none">"Keine"</string>
+	<string name="auth_type">"Authentifizierungstyp"</string>
+	<string name="network_name">"Network Name (SSID)"</string>
+	<string name="network_password">"Network Password"</string>
+	<string name="generate">"Generiere"</string>
+	<string name="no_name">"Sie haben nicht einen Netzwerk-Namen angegeben."</string>
+	<string name="no_pass">"Sie haben kein Passwort angegeben."</string>
+	<string name="save">"Speichern"</string>
+	<string name="share_qr">"Teile QR Code"</string>
+	<string name="root_detected_message">"Root-Zugriff auf Ihrem Gerät erkannt. Möchten Sie ermöglichen diese Anwendung, um Ihre gespeicherten WiFi-Netzwerke und Passwörter zugreifen?"</string>
+	<string name="yes">"Ja"</string>
+	<string name="cancel">"Abbrechen"</string>
+	<string name="saved">"Gespeichert"</string>
+	<string name="delete_wifi_network_msg">"Wollen Sie dieses WiFi-Netzwerk löschen?"</string>
+	<string name="saved_networks">"Gespeichert Netzwerken"</string>
+	<string name="remembered_networks">"Remembered Netzwerken"</string>
+    <string name="saved_success">"WiFi-Netzwerk erfolgreich gespeichert."</string>
 </resources>
