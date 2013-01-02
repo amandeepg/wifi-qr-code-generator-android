@@ -87,6 +87,8 @@ public class SavedFragment extends SherlockListFragment {
           // Build and show alert dialog
           new AlertDialog.Builder(getActivity()).setMessage(R.string.delete_wifi_network_msg).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+              ((ArrayAdapter)TabActivity.getQRFragment(SavedFragment.this).name.getAdapter()).remove(GenQRFragment.savedWifis.get(position2).ssid);
+
               // Remove from list
               GenQRFragment.savedWifis.remove(position2);
               // Sync changes to disk

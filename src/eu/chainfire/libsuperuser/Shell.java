@@ -58,7 +58,7 @@ public class Shell {
 			
 			if (Looper.myLooper() == Looper.getMainLooper()) {
 				Debug.log("Application attempted to run a shell command from the main thread");
-				throw new ShellOnMainThreadException();
+				//throw new ShellOnMainThreadException();
 			}
 				
 			Debug.log(String.format("[%s%%] START", shell.toUpperCase()));			

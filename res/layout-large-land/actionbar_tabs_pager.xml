@@ -6,6 +6,14 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:visibility="gone" />
+
     <fragment android:name="com.madeng.wifiqr.GenQRFragment"
               android:id="@+id/genQRFragLargeLand"
               android:layout_width="fill_parent"
@@ -15,7 +23,7 @@
 
     <com.google.ads.AdView android:id="@+id/adView"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:visibility="gone"
         ads:adUnitId="a14e4b427a0c53e"
         ads:adSize="SMART_BANNER"

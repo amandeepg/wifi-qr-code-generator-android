@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.net.http.AndroidHttpClient;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -27,18 +26,14 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import eu.chainfire.libsuperuser.Shell;
-import org.acra.ErrorReporter;
-import org.apache.http.HttpEntity;
+import org.acra.ACRA;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.*;
 
 public class GenQRFragment extends SherlockFragment {
@@ -331,7 +326,7 @@ public class GenQRFragment extends SherlockFragment {
 
     Log.d(TAG, "perm = " + perm);
 
-    ErrorReporter.getInstance().putCustomData("~C Root Permission", perm + "");
+    ACRA.getErrorReporter().putCustomData("~C Root Permission", perm + "");
 
     // If permission was given previously, go and use root to load
     // remembered networks
@@ -365,6 +360,27 @@ public class GenQRFragment extends SherlockFragment {
   }
 
   private void readWifiFiles() {
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        getActivity().runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            TabActivity.getTabActivity(GenQRFragment.this).showProgress();
+          }
+        });
+        readWifiFilesDo();
+        getActivity().runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            TabActivity.getTabActivity(GenQRFragment.this).hideProgress();
+          }
+        });
+      }
+    }).start();
+  }
+
+  private void readWifiFilesDo() {
       String catScript =
               "if [ -f /data/misc/wifi/wpa_supplicant.conf ] \n" +
               "then \n" +
@@ -444,8 +460,14 @@ public class GenQRFragment extends SherlockFragment {
         if (use) {
           String ssid = findLine(sa[x], "ssid=").replaceAll("\"", "");
           if (ssid.equals(name.getText().toString())){
-            this.pass.setText(pass);
-            generateQR(null);
+            final String finalPass = pass;
+            getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                GenQRFragment.this.pass.setText(finalPass);
+                generateQR(null);
+              }
+            });
           }
           savedWifis.add(new WifiObject(ssid, pass, auth, true));
           atLeastOneAdded = true;
@@ -456,7 +478,12 @@ public class GenQRFragment extends SherlockFragment {
     }
 
     try {
-      TabActivity.getSavedFragment(this).adapter.notifyDataSetChanged();
+      getActivity().runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          TabActivity.getSavedFragment(GenQRFragment.this).adapter.notifyDataSetChanged();
+        }
+      });
     } catch (Exception e) {
       Log.d(TAG, "useRootWifis error", e);
     }
@@ -718,6 +745,16 @@ public class GenQRFragment extends SherlockFragment {
       if (!added)
         savedWifis.add(new WifiObject(nameText, passText, i));
 
+      final ArrayAdapter tempAdapter = ((ArrayAdapter)name.getAdapter());
+      name.setAdapter(null);
+      tempAdapter.add(nameText);
+      mHandler.postDelayed(new Runnable() {
+        @Override
+        public void run() {
+          name.setAdapter(tempAdapter);
+        }
+      }, 1000);
+
       Log.d(TAG, "adapter = " + TabActivity.getSavedFragment(this).adapter);
       TabActivity.getSavedFragment(this).adapter.notifyDataSetChanged();
 
@@ -775,10 +812,18 @@ public class GenQRFragment extends SherlockFragment {
         }
       }
 
-      TabActivity.getSavedFragment(this).adapter.notifyDataSetChanged();
+      if (TabActivity.getSavedFragment(this) != null && TabActivity.getSavedFragment(this).adapter != null)
+        TabActivity.getSavedFragment(this).adapter.notifyDataSetChanged();
+
+      ArrayList<String> savedWifisAsStrings = new ArrayList<String>();
+      for (WifiObject w: savedWifis) {
+        savedWifisAsStrings.add(w.ssid);
+      }
+
+      ((ArrayAdapter)name.getAdapter()).addAll(savedWifisAsStrings);
 
     } catch (Exception e) {
-      Log.d(TAG, "saveSavedWifisToDisk error", e);
+      Log.d(TAG, "loadSavedWifisFromDisk error", e);
     }
   }
 

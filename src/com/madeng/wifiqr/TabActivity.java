@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -111,6 +112,14 @@ public class TabActivity extends SherlockFragmentActivity {
 
 		return true;
 	}
+
+  public void showProgress(){
+    findViewById(R.id.progress).setVisibility(View.VISIBLE);
+  }
+
+  public void hideProgress(){
+    findViewById(R.id.progress).setVisibility(View.GONE);
+  }
 
 	@Override
 	public void onDestroy() {
