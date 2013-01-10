@@ -124,7 +124,8 @@ public class TabActivity extends SherlockFragmentActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		mTabsAdapter.clear();
+    if (mTabsAdapter != null)
+		  mTabsAdapter.clear();
 	}
 
 	@Override

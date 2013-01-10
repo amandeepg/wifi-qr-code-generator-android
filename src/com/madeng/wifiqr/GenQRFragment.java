@@ -101,7 +101,8 @@ public class GenQRFragment extends SherlockFragment {
       List<WifiConfiguration> configuredNetworks = wifi.getConfiguredNetworks();
       if (configuredNetworks != null)
         for (WifiConfiguration conf : configuredNetworks) {
-          confSSIDs.add(conf.SSID.replace("\"", ""));
+          if (conf != null && conf.SSID !=null)
+            confSSIDs.add(conf.SSID.replace("\"", ""));
         }
 
       List<ScanResult> scanResults = wifi.getScanResults();
@@ -129,7 +130,18 @@ public class GenQRFragment extends SherlockFragment {
     name.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        final ArrayAdapter tempAdapter = ((ArrayAdapter)name.getAdapter());
+        name.setAdapter(null);
         GenQRFragment.this.chooseSaved(name.getText().toString());
+        mHandler.postDelayed(new Runnable() {
+          @Override
+          public void run() {
+            name.setAdapter(tempAdapter);
+          }
+        }, 1000);
+
+        //GenQRFragment.this.chooseSaved(name.getText().toString());
       }
     });
 
@@ -280,6 +292,14 @@ public class GenQRFragment extends SherlockFragment {
     pass.setText(wifi.pass);
     auth.setSelection(wifi.auth, true);
 
+    final ArrayAdapter tempAdapter = ((ArrayAdapter)name.getAdapter());
+    name.setAdapter(null);
+    mHandler.postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        name.setAdapter(tempAdapter);
+      }
+    }, 1000);
     name.dismissDropDown();
 
     if (verifyWifi() != null) {
@@ -458,9 +478,9 @@ public class GenQRFragment extends SherlockFragment {
         }
 
         if (use) {
-          String ssid = findLine(sa[x], "ssid=").replaceAll("\"", "");
+          final String ssid = findLine(sa[x], "ssid=").replaceAll("\"", "");
+          final String finalPass = pass;
           if (ssid.equals(name.getText().toString())){
-            final String finalPass = pass;
             getActivity().runOnUiThread(new Runnable() {
               @Override
               public void run() {
@@ -469,7 +489,13 @@ public class GenQRFragment extends SherlockFragment {
               }
             });
           }
-          savedWifis.add(new WifiObject(ssid, pass, auth, true));
+          final int finalAuth = auth;
+          getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+              savedWifis.add(new WifiObject(ssid, finalPass, finalAuth, true));
+            }
+          });
           atLeastOneAdded = true;
         }
       } catch (Exception e) {
@@ -820,7 +846,8 @@ public class GenQRFragment extends SherlockFragment {
         savedWifisAsStrings.add(w.ssid);
       }
 
-      ((ArrayAdapter)name.getAdapter()).addAll(savedWifisAsStrings);
+      for (String s: savedWifisAsStrings)
+        ((ArrayAdapter)name.getAdapter()).add(s);
 
     } catch (Exception e) {
       Log.d(TAG, "loadSavedWifisFromDisk error", e);
