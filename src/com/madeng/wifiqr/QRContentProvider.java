@@ -32,7 +32,7 @@ public class QRContentProvider extends ContentProvider {
 	@Override
 	public ParcelFileDescriptor openFile(Uri uriNULL, String modeNULL) throws FileNotFoundException {
 		try {
-			File f = File.createTempFile(GenQRFragment.ssidName + "-code", ".png", getContext().getFilesDir());
+			File f = File.createTempFile(GenQRFragment.ssidName + "-QR-Code", ".png", getContext().getFilesDir());
 
 			FileOutputStream out = new FileOutputStream(f);
 			GenQRFragment.bmp.compress(Bitmap.CompressFormat.PNG, 80, out);

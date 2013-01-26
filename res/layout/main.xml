@@ -19,7 +19,7 @@
             android:hint="@string/network_name"
             android:singleLine="true">
 
-            <requestFocus></requestFocus>
+            <requestFocus/>
         </AutoCompleteTextView>
 
         <EditText
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/network_password"
             android:imeOptions="actionGo"
-            android:inputType="textPassword"></EditText>
+            android:inputType="textPassword"/>
 
         <LinearLayout
             android:id="@+id/bottomWrapper"
@@ -41,14 +41,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:entries="@array/securityarray"
-                android:prompt="@string/auth_type"></Spinner>
+                android:prompt="@string/auth_type"/>
 
             <Button
                 android:id="@+id/saveBut"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/save"></Button>
+                android:text="@string/save"/>
 
             <Button
                 android:id="@+id/genBut"
@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="@string/generate"></Button>
+                android:text="@string/generate"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -75,9 +75,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"></ProgressBar>
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
+    <!--suppress AndroidLintContentDescription -->
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
@@ -86,9 +87,7 @@
         android:visibility="invisible"
         android:background="@drawable/back"
         android:layout_margin="7dp"
-        android:paddingBottom="2dp"></ImageView>
-
-
+        android:paddingBottom="2dp"/>
 
 
 </LinearLayout>

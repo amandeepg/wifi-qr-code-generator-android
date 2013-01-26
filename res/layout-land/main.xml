@@ -93,6 +93,7 @@
             </ProgressBar>
         </RelativeLayout>
 
+        <!--suppress AndroidLintContentDescription -->
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"

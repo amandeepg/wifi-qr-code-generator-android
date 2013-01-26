@@ -52,7 +52,7 @@ public class Shell {
 	 * @return Output of the commands, or null in case of an error
 	 */
 	public static List<String> run(String shell, String[] commands, boolean wantSTDERR) {
-		if (BuildConfig.DEBUG && false) {
+		if (BuildConfig.DEBUG) {
 			// check if we're running in the main thread, and if so, crash if we're in debug mode,
 			// to let the developer know attention is needed here.
 			

@@ -1,9 +1,7 @@
 package com.madeng.wifiqr.utils;
 
-import android.content.Context;
 import android.graphics.*;
 import android.graphics.Paint.Style;
-import android.text.TextPaint;
 import android.util.Log;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -23,9 +21,8 @@ public class QRUtils {
    *
    * @param content    The string that should be encoded with the QR-code.
    * @param qrCodeSize The QR-code must be quadratic. So this is the number of pixel
-   *                   in width and height.
    */
-  public static void createQrCode(String content, int qrCodeSize, Bitmap bmpIn, String ssidText, Context context) {
+  public static void createQrCode(String content, int qrCodeSize, Bitmap bmpIn, String ssidText) {
     try {
       Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
       hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
@@ -60,15 +57,15 @@ public class QRUtils {
       paint.setTypeface(GenQRFragment.face);
       float fontSize = 10;
       Rect bounds = new Rect();
-      int gap =  qrCodeSize - lastBlackY;
+      int gap = qrCodeSize - lastBlackY;
       int margin = (int) (gap / 7f);
 
-      while(true) {
+      while (true) {
         paint.setTextSize(fontSize);
 
         paint.getTextBounds(ssidText, 0, ssidText.length(), bounds);
 
-        if (bounds.height() + (margin*2) > gap || bounds.width() + (margin*2) > qrCodeSize)
+        if (bounds.height() + (margin * 2) > gap || bounds.width() + (margin * 2) > qrCodeSize)
           break;
 
         fontSize += 0.1;

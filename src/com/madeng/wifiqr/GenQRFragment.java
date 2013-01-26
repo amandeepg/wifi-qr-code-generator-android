@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
@@ -86,7 +88,7 @@ public class GenQRFragment extends SherlockFragment {
     name = (AutoCompleteTextView) v.findViewById(R.id.editText1);
     pass = (EditText) v.findViewById(R.id.editText2);
     auth = (Spinner) v.findViewById(R.id.spinner1);
-    progressSpinner = (View) v.findViewById(R.id.pbWrapper);
+    progressSpinner = v.findViewById(R.id.pbWrapper);
 
     // If qr code to show, show it, and hide progress spinner
     if (bmp != null) {
@@ -119,10 +121,13 @@ public class GenQRFragment extends SherlockFragment {
     name.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.actv_item, confSSIDs));
     name.setThreshold(1);
 
-    Log.d(TAG, "onSaveInstanceState = " + savedInstanceState);
+    ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo mWifi = null;
+    if (connManager != null)
+      mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-    WifiInfo info = wifi.getConnectionInfo();
-    if (savedInstanceState == null && info != null && info.getSSID() != null && info.getMacAddress() != null) {
+    WifiInfo info = wifi != null ? wifi.getConnectionInfo() : null;
+    if (savedInstanceState == null && mWifi != null && mWifi.isConnected() && info != null && info.getSSID() != null && info.getMacAddress() != null) {
       name.setText(info.getSSID().replace("\"", ""));
       pass.requestFocus();
     }
@@ -140,8 +145,6 @@ public class GenQRFragment extends SherlockFragment {
             name.setAdapter(tempAdapter);
           }
         }, 1000);
-
-        //GenQRFragment.this.chooseSaved(name.getText().toString());
       }
     });
 
@@ -152,7 +155,7 @@ public class GenQRFragment extends SherlockFragment {
     pass.setOnEditorActionListener(new OnEditorActionListener() {
       public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_GO) {
-          generateQR(v);
+          generateQR();
         }
         return true;
       }
@@ -163,7 +166,7 @@ public class GenQRFragment extends SherlockFragment {
 
       @Override
       public void onClick(View v) {
-        generateQR(v);
+        generateQR();
       }
     });
 
@@ -172,7 +175,7 @@ public class GenQRFragment extends SherlockFragment {
 
       @Override
       public void onClick(View v) {
-        saveThis(v);
+        saveThis();
       }
     });
 
@@ -206,7 +209,7 @@ public class GenQRFragment extends SherlockFragment {
           ByteArrayOutputStream content = new ByteArrayOutputStream();
 
           // Read response into a buffered stream
-          int readBytes = 0;
+          int readBytes;
           byte[] sBuffer = new byte[512];
           while ((readBytes = inputStream.read(sBuffer)) != -1) {
             content.write(sBuffer, 0, readBytes);
@@ -225,7 +228,11 @@ public class GenQRFragment extends SherlockFragment {
 
               @Override
               public void run() {
-                getTabActivity().findViewById(R.id.adView).setVisibility(View.VISIBLE);
+                try {
+                  getTabActivity().findViewById(R.id.adView).setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                  Log.d(TAG, "networkGeoThread Handler error", e);
+                }
               }
             });
           }
@@ -242,14 +249,6 @@ public class GenQRFragment extends SherlockFragment {
     Log.d(TAG, "onCreateView");
 
     return v;
-  }
-
-  @Override
-  public void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-    // Saves current tab
-
-    Log.d(TAG, "onSaveInstanceState");
   }
 
   public boolean chooseSaved(String ssid){
@@ -303,7 +302,7 @@ public class GenQRFragment extends SherlockFragment {
     name.dismissDropDown();
 
     if (verifyWifi() != null) {
-      generateQR(null);
+      generateQR();
       return true;
     } else
       return false;
@@ -416,11 +415,17 @@ public class GenQRFragment extends SherlockFragment {
               "fi \n";
 
     try {
-      List<String> result = Shell.SU.run(catScript);
+      final List<String> result = Shell.SU.run(catScript);
       // Size will be greater than 2, when some networks exist
-      if (result.size() > 2)
-        parseNetworks(result);
-      else
+      if (result.size() > 2) {
+        getActivity().runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            parseNetworks(result);
+            TabActivity.getSavedFragment(GenQRFragment.this).adapter.notifyDataSetChanged();
+          }
+        });
+      } else
         Log.d(TAG, "not longer than 2 " + result.toString());
     } catch (Exception e) {
       e.printStackTrace();
@@ -455,63 +460,37 @@ public class GenQRFragment extends SherlockFragment {
           Log.d(TAG, "useRootWifis loop networkType error", e);
         }
         String pass = "";
-        boolean use = false;
+        boolean use = true;
         int auth = 2;
         if (type.equals("WPA-PSK")) {
           try {
             pass = findLine(sa[x], "psk=").replaceAll("\"", "");
             auth = 0;
-            use = true;
-          } catch (Exception e) {
-            use = true;
+          } catch (Exception ignored) {
           }
         } else if (type.equals("WEP")) {
           try {
             pass = findLine(sa[x], "wep_key0=").replaceAll("\"", "");
             auth = 1;
-            use = true;
-          } catch (Exception e) {
-            use = true;
+          } catch (Exception ignored) {
           }
         } else if (type.equals("NONE")) {
-          use = true;
+        } else {
+          use = false;
         }
 
         if (use) {
           final String ssid = findLine(sa[x], "ssid=").replaceAll("\"", "");
-          final String finalPass = pass;
           if (ssid.equals(name.getText().toString())){
-            getActivity().runOnUiThread(new Runnable() {
-              @Override
-              public void run() {
-                GenQRFragment.this.pass.setText(finalPass);
-                generateQR(null);
-              }
-            });
+            GenQRFragment.this.pass.setText(pass);
+            generateQR();
           }
-          final int finalAuth = auth;
-          getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-              savedWifis.add(new WifiObject(ssid, finalPass, finalAuth, true));
-            }
-          });
+          savedWifis.add(new WifiObject(ssid, pass, auth, true));
           atLeastOneAdded = true;
         }
       } catch (Exception e) {
         Log.d(TAG, "useRootWifis loop error", e);
       }
-    }
-
-    try {
-      getActivity().runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-          TabActivity.getSavedFragment(GenQRFragment.this).adapter.notifyDataSetChanged();
-        }
-      });
-    } catch (Exception e) {
-      Log.d(TAG, "useRootWifis error", e);
     }
 
     if (atLeastOneAdded)
@@ -560,7 +539,7 @@ public class GenQRFragment extends SherlockFragment {
         // Share the QR code after we generate it
         postGenerateQRRunnable = sharingRunnable;
         shareIntent = intent;
-        generateQR(null);
+        generateQR();
       }
       // Otherwise, share it
     } else {
@@ -575,9 +554,10 @@ public class GenQRFragment extends SherlockFragment {
     if (intent == null)
       intent = shareIntent;
 
-    Uri uri = Uri.parse(QRContentProvider.CONTENT_URI + name.getText().toString() + "_code.jpg");
+    Uri uri = Uri.parse(QRContentProvider.CONTENT_URI + name.getText().toString() + "-QR-Code.png");
     Log.d(TAG, "uri = " + uri);
     intent.putExtra(Intent.EXTRA_STREAM, uri);
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     startActivity(intent);
   }
 
@@ -628,17 +608,14 @@ public class GenQRFragment extends SherlockFragment {
     return content;
   }
 
-  public void generateQR(View vnull) {
-    generateQR(vnull, -1);
+  public void generateQR() {
+    generateQR(-1);
   }
 
   /**
    * Generates QR code and displays it
-   *
-   * @param vnull
    */
-  public void generateQR(View vnull, final int animDuration) {
-    vnull = null;
+  public void generateQR(final int animDuration) {
     final String content = verifyWifi();
     if (content == null)
       return;
@@ -689,7 +666,7 @@ public class GenQRFragment extends SherlockFragment {
       public void run() {
         // Gets QR code based on content string
         bmp = Bitmap.createBitmap(qrSize, qrSize, Bitmap.Config.ARGB_8888);
-        QRUtils.createQrCode(content, qrSize, bmp, name.getText().toString(), getTabActivity());
+        QRUtils.createQrCode(content, qrSize, bmp, name.getText().toString());
 
         // Display the bitmap on the UI thread
         mHandler.post(new Runnable() {
@@ -744,11 +721,8 @@ public class GenQRFragment extends SherlockFragment {
 
   /**
    * Saves currently entered network
-   *
-   * @param vnull
    */
-  public void saveThis(View vnull) {
-    vnull = null;
+  public void saveThis() {
     // If info is valid
     if (verifyWifi() != null) {
       String nameText = name.getText().toString();
@@ -771,8 +745,10 @@ public class GenQRFragment extends SherlockFragment {
       if (!added)
         savedWifis.add(new WifiObject(nameText, passText, i));
 
-      final ArrayAdapter tempAdapter = ((ArrayAdapter)name.getAdapter());
+      //noinspection unchecked
+      final ArrayAdapter tempAdapter = (ArrayAdapter)name.getAdapter();
       name.setAdapter(null);
+      //noinspection unchecked
       tempAdapter.add(nameText);
       mHandler.postDelayed(new Runnable() {
         @Override
@@ -781,11 +757,10 @@ public class GenQRFragment extends SherlockFragment {
         }
       }, 1000);
 
-      Log.d(TAG, "adapter = " + TabActivity.getSavedFragment(this).adapter);
       TabActivity.getSavedFragment(this).adapter.notifyDataSetChanged();
 
       // Show the QR code on screen, for ease-of-use
-      generateQR(null);
+      generateQR();
 
       saveSavedWifisToDisk();
 
