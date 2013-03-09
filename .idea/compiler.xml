@@ -6,6 +6,7 @@
       <directory url="file://$PROJECT_DIR$/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/libs/abs/library/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/../oak-android/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/libs/abs/actionbarsherlock/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>

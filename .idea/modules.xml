@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/libs/abs/library/abs.iml" filepath="$PROJECT_DIR$/libs/abs/library/abs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/abs/actionbarsherlock/actionbarsherlock.iml" filepath="$PROJECT_DIR$/libs/abs/actionbarsherlock/actionbarsherlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/wifi-qr-generator-android.iml" filepath="$PROJECT_DIR$/wifi-qr-generator-android.iml" />
     </modules>
   </component>

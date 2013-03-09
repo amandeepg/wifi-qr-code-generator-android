@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Wifi QR Code Generator</string>
+	<string name="app_name">WiFi QR Generator</string>
 	<string name="wep">WEP</string>
 	<string name="wpa">WPA/WPA2</string>
 	<string name="none">Geen</string>
-	<string name="auth_type">Authentication Type</string>
+	<string name="auth_type">Authenticatietype</string>
 	<string name="network_name">Netwerknaam (SSID)</string>
 	<string name="network_password">Netwerkwachtwoord</string>
-	<string name="generate">Het genereren van</string>
-	<string name="no_name">U hebt geen opgegeven netwerknaam.</string>
-	<string name="no_pass">U heeft niet opgegeven een wachtwoord.</string>
-	<string name="save">Besparen</string>
-	<string name="saved_ssids">Opgeslagen SSID\'s</string>
-	<string name="saveds_title">Opgeslagen Access Points</string>
-	<string name="saved_access_points">Opgeslagen toegangspunten</string>
-	<string name="share_qr">Deel QR Code</string>
-	<string name="select">Kiezen</string>
-	<string name="delete">Verwijderen</string>
+	<string name="generate">Genereren</string>
+	<string name="no_name">U heeft geen netwerknaam opgegeven.</string>
+	<string name="no_pass">U heeft geen wachtwoord opgegeven.</string>
+	<string name="save">Opslaan.</string>
+	<string name="share_qr">QR Code delen</string>
+	<string name="root_detected_message">Er is root toegang gedetecteerd op uw toestel. Wilt u deze applicatie toegang verlenen tot uw opgeslagen WiFi netwerken en wachtwoorden?</string>
+	<string name="yes">Ja</string>
+	<string name="cancel">Annuleren</string>
+	<string name="saved">Opgeslagen</string>
+	<string name="delete_wifi_network_msg">Wilt u dit WiFi netwerk verwijderen?</string>
+	<string name="saved_networks">Opgeslagen netwerken</string>
+	<string name="remembered_networks">Bekende netwerken</string>
+	<string name="saved_success">WiFi netwerk opgeslagen.</string>
 </resources>
