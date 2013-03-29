@@ -103,7 +103,7 @@ public class GenQRFragment extends SherlockFragment {
       List<WifiConfiguration> configuredNetworks = wifi.getConfiguredNetworks();
       if (configuredNetworks != null)
         for (WifiConfiguration conf : configuredNetworks) {
-          if (conf != null && conf.SSID !=null)
+          if (conf != null && conf.SSID != null)
             confSSIDs.add(conf.SSID.replace("\"", ""));
         }
 
@@ -136,7 +136,7 @@ public class GenQRFragment extends SherlockFragment {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        final ArrayAdapter tempAdapter = ((ArrayAdapter)name.getAdapter());
+        final ArrayAdapter tempAdapter = ((ArrayAdapter) name.getAdapter());
         name.setAdapter(null);
         GenQRFragment.this.chooseSaved(name.getText().toString());
         mHandler.postDelayed(new Runnable() {
@@ -220,10 +220,10 @@ public class GenQRFragment extends SherlockFragment {
 
           JSONObject jsonOb = new JSONObject(dataAsString);
           String countryCode = jsonOb.getString("countryCode"),
-                 lang = Locale.getDefault().getLanguage();
+              lang = Locale.getDefault().getLanguage();
           Log.d(TAG, "jsonOb = " + countryCode + " " + lang);
 
-          if (! ((countryCode.equals("CA") || countryCode.equals("US") || countryCode.equals("USA")) && lang.equals("en")) ) {
+          if (!((countryCode.equals("CA") || countryCode.equals("US") || countryCode.equals("USA")) && lang.equals("en"))) {
             mHandler.post(new Runnable() {
 
               @Override
@@ -251,8 +251,8 @@ public class GenQRFragment extends SherlockFragment {
     return v;
   }
 
-  public boolean chooseSaved(String ssid){
-    for (WifiObject w: savedWifis) {
+  public boolean chooseSaved(String ssid) {
+    for (WifiObject w : savedWifis) {
       if (w.ssid.equals(ssid))
         return chooseSaved(w);
     }
@@ -291,7 +291,7 @@ public class GenQRFragment extends SherlockFragment {
     pass.setText(wifi.pass);
     auth.setSelection(wifi.auth, true);
 
-    final ArrayAdapter tempAdapter = ((ArrayAdapter)name.getAdapter());
+    final ArrayAdapter tempAdapter = ((ArrayAdapter) name.getAdapter());
     name.setAdapter(null);
     mHandler.postDelayed(new Runnable() {
       @Override
@@ -400,19 +400,19 @@ public class GenQRFragment extends SherlockFragment {
   }
 
   private void readWifiFilesDo() {
-      String catScript =
-              "if [ -f /data/misc/wifi/wpa_supplicant.conf ] \n" +
-              "then \n" +
-              "cat /data/misc/wifi/wpa_supplicant.conf \n" +
-              "fi \n"+
-              "if [ -f /data/wifi/bcm_supp.conf ] \n" +
-              "then \n" +
-              "cat /data/wifi/bcm_supp.conf \n" +
-              "fi \n"+
-              "if [ -f /data/misc/wifi/wpa.conf ] \n" +
-              "then \n" +
-              "cat /data/misc/wifi/wpa.conf \n" +
-              "fi \n";
+    String catScript =
+        "if [ -f /data/misc/wifi/wpa_supplicant.conf ] \n" +
+            "then \n" +
+            "cat /data/misc/wifi/wpa_supplicant.conf \n" +
+            "fi \n" +
+            "if [ -f /data/wifi/bcm_supp.conf ] \n" +
+            "then \n" +
+            "cat /data/wifi/bcm_supp.conf \n" +
+            "fi \n" +
+            "if [ -f /data/misc/wifi/wpa.conf ] \n" +
+            "then \n" +
+            "cat /data/misc/wifi/wpa.conf \n" +
+            "fi \n";
 
     try {
       final List<String> result = Shell.SU.run(catScript);
@@ -481,7 +481,7 @@ public class GenQRFragment extends SherlockFragment {
 
         if (use) {
           final String ssid = findLine(sa[x], "ssid=").replaceAll("\"", "");
-          if (ssid.equals(name.getText().toString())){
+          if (ssid.equals(name.getText().toString())) {
             GenQRFragment.this.pass.setText(pass);
             generateQR();
           }
@@ -624,7 +624,7 @@ public class GenQRFragment extends SherlockFragment {
 
     if (iv.getVisibility() == View.VISIBLE) {
       AnimatorSet set = new AnimatorSet();
-      ObjectAnimator qrOut = ObjectAnimator.ofFloat(iv, "translationX", 0, iv.getWidth()/2);
+      ObjectAnimator qrOut = ObjectAnimator.ofFloat(iv, "translationX", 0, iv.getWidth() / 2);
       set.play(qrOut).before(progressFadeIn);
       set.play(qrOut).with(ObjectAnimator.ofFloat(iv, "alpha", 1, 0));
       qrOut.addListener(new Animator.AnimatorListener() {
@@ -671,8 +671,8 @@ public class GenQRFragment extends SherlockFragment {
         // Display the bitmap on the UI thread
         mHandler.post(new Runnable() {
           public void run() {
-            iv.setImageBitmap (bmp);
-            ssidName = name.getText().toString().trim() ;
+            iv.setImageBitmap(bmp);
+            ssidName = name.getText().toString().trim();
             AnimatorSet set = new AnimatorSet();
             ObjectAnimator progressFadeOut = ObjectAnimator.ofFloat(progressSpinner, "alpha", 1, 0);
             ObjectAnimator ivFadeIn = ObjectAnimator.ofFloat(iv, "alpha", 0, 1);
@@ -746,7 +746,7 @@ public class GenQRFragment extends SherlockFragment {
         savedWifis.add(new WifiObject(nameText, passText, i));
 
       //noinspection unchecked
-      final ArrayAdapter tempAdapter = (ArrayAdapter)name.getAdapter();
+      final ArrayAdapter tempAdapter = (ArrayAdapter) name.getAdapter();
       name.setAdapter(null);
       //noinspection unchecked
       tempAdapter.add(nameText);
@@ -817,12 +817,12 @@ public class GenQRFragment extends SherlockFragment {
         TabActivity.getSavedFragment(this).adapter.notifyDataSetChanged();
 
       ArrayList<String> savedWifisAsStrings = new ArrayList<String>();
-      for (WifiObject w: savedWifis) {
+      for (WifiObject w : savedWifis) {
         savedWifisAsStrings.add(w.ssid);
       }
 
-      for (String s: savedWifisAsStrings)
-        ((ArrayAdapter)name.getAdapter()).add(s);
+      for (String s : savedWifisAsStrings)
+        ((ArrayAdapter) name.getAdapter()).add(s);
 
     } catch (Exception e) {
       Log.d(TAG, "loadSavedWifisFromDisk error", e);

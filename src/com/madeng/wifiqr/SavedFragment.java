@@ -27,15 +27,14 @@ import java.util.List;
 public class SavedFragment extends SherlockListFragment {
 
   /**
-   * Custom adapter used for this list
-   */
-  public SSIDAdapter adapter;
-
-  /**
    * Are any remembered networks from Android being shown? Used for showing
    * headers, offsetting selected indices, etc
    */
   public static boolean showRoot = false;
+  /**
+   * Custom adapter used for this list
+   */
+  public SSIDAdapter adapter;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +87,7 @@ public class SavedFragment extends SherlockListFragment {
           new AlertDialog.Builder(getActivity()).setMessage(R.string.delete_wifi_network_msg).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
               //noinspection unchecked
-              ((ArrayAdapter)TabActivity.getQRFragment(SavedFragment.this).name.getAdapter()).remove(GenQRFragment.savedWifis.get(position2).ssid);
+              ((ArrayAdapter) TabActivity.getQRFragment(SavedFragment.this).name.getAdapter()).remove(GenQRFragment.savedWifis.get(position2).ssid);
 
               // Remove from list
               GenQRFragment.savedWifis.remove(position2);
