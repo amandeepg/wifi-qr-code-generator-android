@@ -17,6 +17,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.actionbarsherlock.widget.ShareActionProvider.OnShareTargetSelectedListener;
+import com.google.analytics.tracking.android.EasyTracker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,9 +102,8 @@ public class TabActivity extends SherlockFragmentActivity {
         } catch (Exception ignored) {
         }
       }
-    } else {
-
     }
+    EasyTracker.getInstance().setContext(this);
   }
 
   @Override
@@ -158,8 +158,15 @@ public class TabActivity extends SherlockFragmentActivity {
   }
 
   @Override
-  public void onPause() {
-    super.onPause();
+  public void onStart() {
+    super.onStart();
+    EasyTracker.getInstance().activityStart(this);
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EasyTracker.getInstance().activityStop(this);
   }
 
   /**
