@@ -28,7 +28,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import eu.chainfire.libsuperuser.Shell;
-import org.acra.ACRA;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpGet;
@@ -345,7 +344,7 @@ public class GenQRFragment extends SherlockFragment {
 
     Log.d(TAG, "perm = " + perm);
 
-    ACRA.getErrorReporter().putCustomData("~C Root Permission", perm + "");
+    //ACRA.getErrorReporter().putCustomData("~C Root Permission", perm + "");
 
     // If permission was given previously, go and use root to load
     // remembered networks
