@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiFi QR 產生器</string>
+    <string name="none">沒有一個</string>
+    <string name="auth_type">身份驗證類型</string>
+    <string name="network_name">網路名稱 (SSID)</string>
+    <string name="network_password">網路密碼</string>
+    <string name="no_name">你不指定的網路名稱。</string>
+    <string name="no_pass">您沒有指定密碼。</string>
+    <string name="save">保存</string>
+    <string name="share">共用</string>
+    <string name="share_qr_code">共用 Wifi QR 代碼</string>
+    <string name="root_detected_message">您的設備上檢測到超級使用者存取權限。你可能想讓此應用程式來訪問您保存的 WiFi 網路和密碼嗎?</string>
+    <string name="yes">是啊</string>
+    <string name="saved">保存</string>
+    <string name="saved_success">成功保存的 WiFi 網路。</string>
+    <string name="nearby_network">附近的網路</string>
+    <string name="remembered_network">記住的網路</string>
+    <string name="saved_network">保存的網路</string>
+</resources>

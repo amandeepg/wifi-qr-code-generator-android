@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiFi QR-Generator</string>
+    <string name="none">Keine</string>
+    <string name="auth_type">Authentifizierungstyp</string>
+    <string name="network_name">Netzwerkname (SSID)</string>
+    <string name="network_password">Netzwerk-Kennwort</string>
+    <string name="no_name">Sie haben einen Netzwerknamen nicht angegeben.</string>
+    <string name="no_pass">Sie haben kein Kennwort angegeben.</string>
+    <string name="save">Speichern</string>
+    <string name="share">Freigeben</string>
+    <string name="share_qr_code">Aktie Wifi QR-Code</string>
+    <string name="root_detected_message">Root-Zugriff wurde auf Ihr Gerät gefunden. Möchten Sie diese Anwendung den Zugriff auf Ihre gespeicherten WLAN-Netze und Passwörter zu ermöglichen?</string>
+    <string name="yes">Ja</string>
+    <string name="saved">Gespeichert</string>
+    <string name="saved_success">WiFi-Netzwerk erfolgreich gespeichert.</string>
+    <string name="nearby_network">Nahe gelegenen Netzwerk</string>
+    <string name="remembered_network">Erinnerter Netzwerk</string>
+    <string name="saved_network">Gespeicherte Netzwerk</string>
+</resources>

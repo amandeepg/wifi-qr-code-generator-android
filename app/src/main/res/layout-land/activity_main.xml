@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    style="@style/ActivityContainer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clipChildren="false"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_weight="0.75"
+        android:orientation="vertical">
+
+        <com.madeng.wifiqr.InstantAutoCompleteTextView
+            android:id="@+id/name_field"
+            style="@style/NameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <requestFocus/>
+        </com.madeng.wifiqr.InstantAutoCompleteTextView>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/pwd_field"
+            style="@style/PwdField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/auth_spinner"
+            style="@style/AuthSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_marginLeft="@dimen/activity_horizontal_intermargin"
+        android:layout_marginRight="@dimen/activity_horizontal_intermargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <com.github.rahatarmanahmed.cpv.CircularProgressView
+            android:id="@+id/fab_spinner"
+            style="@style/FabSpinner"
+            android:layout_width="62dp"
+            android:layout_height="62dp"/>
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/generate_button"
+            style="@style/GenerateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <com.madeng.wifiqr.QrView
+        android:id="@+id/main_qr_view"
+        style="@style/MainQrView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_weight="1">
+    </com.madeng.wifiqr.QrView>
+
+</LinearLayout>

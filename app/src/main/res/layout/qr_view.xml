@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/qr_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <!--suppress AndroidElementNotAllowed -->
+        <ImageView
+            android:id="@+id/qr_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            tools:src="@mipmap/wifiqr_ic_launcher"/>
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fab_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="10dp"
+            fab:menu_colorNormal="@color/md_grey_500"
+            fab:menu_colorPressed="@color/md_grey_700"
+            fab:menu_fab_size="mini">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/share_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share_white_18dp"
+                fab:fab_label="@string/share"
+                fab:fab_size="mini"/>
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/save_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_save_white_18dp"
+                fab:fab_label="@string/save"
+                fab:fab_size="mini"/>
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+    </android.support.v7.widget.CardView>
+</merge>

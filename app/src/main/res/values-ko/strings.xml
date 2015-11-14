@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiFi QR 생성기</string>
+    <string name="none">없음</string>
+    <string name="auth_type">인증 유형</string>
+    <string name="network_name">네트워크 이름 (SSID)</string>
+    <string name="network_password">네트워크 암호</string>
+    <string name="no_name">네트워크 이름을 지정 하지 했습니다.</string>
+    <string name="no_pass">암호를 지정 하지 했습니다.</string>
+    <string name="save">저장</string>
+    <string name="share">공유</string>
+    <string name="share_qr_code">공유 Wifi QR 코드</string>
+    <string name="root_detected_message">루트 액세스 장치에 감지 되었습니다. 이 응용 프로그램 저장 된 WiFi 네트워크 및 암호에 액세스할 수 있도록 하 시겠습니까?</string>
+    <string name="yes">예</string>
+    <string name="saved">저장</string>
+    <string name="saved_success">WiFi 네트워크에 성공적으로 저장 합니다.</string>
+    <string name="nearby_network">주변 네트워크</string>
+    <string name="remembered_network">기억된 네트워크</string>
+    <string name="saved_network">저장 된 네트워크</string>
+</resources>

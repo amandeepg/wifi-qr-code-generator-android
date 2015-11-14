@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiFiのQRジェネレータ</string>
+    <string name="none">なし</string>
+    <string name="auth_type">認証タイプ</string>
+    <string name="network_name">ネットワーク名（SSID）</string>
+    <string name="network_password">ネットワークパスワード</string>
+    <string name="no_name">あなたは、ネットワーク名を指定していません。</string>
+    <string name="no_pass">パスワードを指定していません。</string>
+    <string name="save">セーブ</string>
+    <string name="share">シェア</string>
+    <string name="share_qr_code">共有無線LANのQRコード</string>
+    <string name="root_detected_message">ルートアクセスは、あなたのデバイス上で検出されました。あなたは、このアプリケーションが保存されたWiFiネットワークとパスワードへのアクセスを許可しますか？</string>
+    <string name="yes">はい</string>
+    <string name="saved">保存されました</string>
+    <string name="saved_success">WiFiネットワークが正常に保存されました。</string>
+    <string name="nearby_network">近所のネットワーク</string>
+    <string name="remembered_network">思い出しネットワーク</string>
+    <string name="saved_network">保存されたネットワーク</string>
+</resources>

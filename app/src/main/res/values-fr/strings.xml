@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Générateur de QR de WiFi</string>
+    <string name="none">Aucun</string>
+    <string name="auth_type">Type d\'authentification</string>
+    <string name="network_name">Nom réseau (SSID)</string>
+    <string name="network_password">Mot de passe réseau</string>
+    <string name="no_name">Vous n\'avez pas spécifié un nom de réseau.</string>
+    <string name="no_pass">Vous n\'avez pas spécifié un mot de passe.</string>
+    <string name="save">Enregistrer</string>
+    <string name="share">Partager</string>
+    <string name="share_qr_code">Partage Wifi QR Code</string>
+    <string name="root_detected_message">Accès root a été détecté sur le périphérique. Vous souhaitez permettre à cette application accéder à vos réseaux WiFi et les mots de passe enregistrés ?</string>
+    <string name="yes">Oui</string>
+    <string name="saved">Enregistré</string>
+    <string name="saved_success">Réseau WiFi enregistré avec succès.</string>
+    <string name="nearby_network">Réseau à proximité</string>
+    <string name="remembered_network">Souvenir de réseau</string>
+    <string name="saved_network">Réseau enregistré</string>
+</resources>

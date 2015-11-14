@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiFi QR Generator</string>
+	<string name="none">None</string>
+    <string name="wep" translatable="false">WEP</string>
+    <string name="wpa" translatable="false">WPA/WPA2</string>
+	<string name="auth_type">Authentication Type</string>
+	<string name="network_name">Network Name (SSID)</string>
+	<string name="network_password">Network Password</string>
+	<string name="no_name">You have not specified a network name.</string>
+	<string name="no_pass">You have not specified a password.</string>
+	<string name="save">Save</string>
+	<string name="share">Share</string>
+	<string name="share_qr_code">Share Wifi QR Code</string>
+	<string name="root_detected_message">Root access has been detected on your device. Would you like to allow this application to access your saved WiFi networks and passwords?</string>
+	<string name="yes">Yes</string>
+	<string name="saved">Saved</string>
+    <string name="saved_success">WiFi network successfully saved.</string>
+	<string name="nearby_network">Nearby network</string>
+	<string name="remembered_network">Remembered network</string>
+	<string name="saved_network">Saved network</string>
+</resources>

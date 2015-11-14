@@ -1,0 +1,51 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/md_blue_500</item>
+        <item name="colorPrimaryDark">@color/md_blue_700</item>
+        <item name="colorAccent">@color/md_blue_800</item>
+    </style>
+
+    <style name="ActivityContainer">
+        <item name="android:background">@color/md_grey_200</item>
+    </style>
+
+    <style name="NameField">
+        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:hint">@string/network_name</item>
+        <item name="met_floatingLabel">highlight</item>
+    </style>
+
+    <style name="PwdField">
+        <item name="android:imeOptions">actionGo</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:hint">@string/network_password</item>
+        <item name="met_floatingLabel">highlight</item>
+    </style>
+
+    <style name="AuthSpinner">
+        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:hint">@string/auth_type</item>
+        <item name="met_floatingLabel">highlight</item>
+    </style>
+
+    <style name="FabSpinner">
+        <item name="android:visibility">invisible</item>
+        <item name="cpv_animAutostart">true</item>
+        <item name="cpv_color">#FF5722</item>
+        <item name="cpv_indeterminate">true</item>
+        <item name="cpv_thickness">3dp</item>
+    </style>
+
+    <style name="GenerateButton">
+        <item name="fab_colorNormal">?colorPrimary</item>
+        <item name="fab_colorPressed">?colorPrimaryDark</item>
+        <item name="fab_colorRipple">?colorAccent</item>
+    </style>
+
+    <style name="MainQrView">
+        <item name="android:visibility">invisible</item>
+    </style>
+</resources>

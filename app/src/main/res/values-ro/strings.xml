@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Generator de WiFi QR</string>
+    <string name="none">Nici unul</string>
+    <string name="auth_type">Tip de autentificare</string>
+    <string name="network_name">Reţea nume (SSID)</string>
+    <string name="network_password">Parola de reţea</string>
+    <string name="no_name">Nu aţi specificat un nume de reţea.</string>
+    <string name="no_pass">Nu aţi specificat o parolă.</string>
+    <string name="save">Salvaţi</string>
+    <string name="share">Cota de</string>
+    <string name="share_qr_code">Cota Wifi QR Code</string>
+    <string name="root_detected_message">Acces root a fost detectat pe aparat. Doriţi să permită această aplicaţie pentru a accesa reţelele de internet Wi-fi şi parolele salvate?</string>
+    <string name="yes">da</string>
+    <string name="saved">Salvate</string>
+    <string name="saved_success">Reţea WiFi salvat cu succes.</string>
+    <string name="nearby_network">Reţea din apropiere</string>
+    <string name="remembered_network">Amintit de reţea</string>
+    <string name="saved_network">Memorate reţeaua</string>
+</resources>
