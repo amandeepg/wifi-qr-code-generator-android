@@ -4,6 +4,7 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 23
@@ -110,9 +111,6 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
-
-    // orm
-    compile files('libs/realm-0.84.1.jar')
 
     // debugging
     debugCompile 'com.facebook.stetho:stetho:1.2.0'

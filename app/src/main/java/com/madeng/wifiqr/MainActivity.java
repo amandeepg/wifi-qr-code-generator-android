@@ -110,12 +110,14 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_KEY_QR_SHOWN)) {
             mCompositeSubscription.add(
                     loadNetworksObservable
+                            .observeOn(AndroidSchedulers.mainThread())
                             .doOnCompleted(this::setNameAdapter)
                             .subscribe());
             showQrView(false);
         } else {
             mCompositeSubscription.add(
                     loadNetworksObservable
+                            .observeOn(AndroidSchedulers.mainThread())
                             .doOnCompleted(this::setNameAdapter)
                             .doOnCompleted(this::prefillConnectedNetwork)
                             .subscribe());
@@ -203,7 +205,8 @@ public class MainActivity extends AppCompatActivity {
                         .throttleLast(1, TimeUnit.SECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
                         .map(UtilityFunctions.returnNull())
-                        .subscribe(nothing -> setNameAdapter()));
+                        .doOnNext(nothing -> setNameAdapter())
+                        .subscribe());
 
         mCompositeSubscription.add(
                 RxBus.toObservable(ShareNetworkTask.class)

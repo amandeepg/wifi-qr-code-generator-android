@@ -70,7 +70,7 @@ public class QrContentProvider extends ContentProvider {
 
         final String lastPathSegment = uri.getLastPathSegment();
         final String ssid = lastPathSegment.substring(0, lastPathSegment.length() - 4);
-        return new NetworkInfoDataService(getContext()).networkInfo(ssid).toBlocking().single();
+        return new NetworkInfoDataService(getContext()).networkInfoBlocking(ssid);
     }
 
     @Override

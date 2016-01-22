@@ -2,15 +2,16 @@ package com.madeng.wifiqr;
 
 import android.content.Context;
 
-import com.madeng.wifiqr.utils.rx.RealmObservable;
-
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 import rx.Observable;
+import rx.internal.util.UtilityFunctions;
 
 public class NetworkInfoDataService {
 
@@ -21,22 +22,37 @@ public class NetworkInfoDataService {
     }
 
     @NotNull
+    private RealmQuery<QrNetworkInfo> whereNameEqualTo(@NotNull String name) {
+        return Realm.getInstance(mContext)
+                .where(QrNetworkInfo.class)
+                .equalTo("name", name);
+    }
+
+    @NotNull
+    public QrNetworkInfo networkInfoBlocking(@NotNull final String name) {
+        return whereNameEqualTo(name).findFirst();
+    }
+
+    @NotNull
     public Observable<QrNetworkInfo> networkInfo(@NotNull final String name) {
-        return RealmObservable
-                .object(mContext, realm -> realm.where(QrNetworkInfo.class).equalTo("name", name).findFirst())
+        return whereNameEqualTo(name)
+                .findFirstAsync()
+                .<QrNetworkInfo>asObservable()
+                .filter(RealmObject::isLoaded)
+                .first()
                 .map(QrNetworkInfo::cloneFromRealm);
     }
 
     public Observable<List<QrNetworkInfo>> networkInfos() {
-        return RealmObservable
-                .results(mContext, realm -> realm.where(QrNetworkInfo.class).findAll())
-                .map(realmInfos -> {
-                    final List<QrNetworkInfo> infos = new ArrayList<>(realmInfos.size());
-                    for (QrNetworkInfo realmInfo : realmInfos) {
-                        infos.add(QrNetworkInfo.cloneFromRealm(realmInfo));
-                    }
-                    return infos;
-                });
+        return Realm.getInstance(mContext)
+                .where(QrNetworkInfo.class)
+                .findAllAsync()
+                .asObservable()
+                .filter(RealmResults::isLoaded)
+                .first()
+                .flatMapIterable(UtilityFunctions.identity())
+                .map(QrNetworkInfo::cloneFromRealm)
+                .toList();
     }
 
     public void save(@NotNull final QrNetworkInfo info) {
