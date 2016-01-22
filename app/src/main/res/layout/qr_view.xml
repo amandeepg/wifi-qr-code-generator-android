@@ -28,7 +28,9 @@
             android:layout_margin="10dp"
             fab:menu_colorNormal="@color/md_grey_500"
             fab:menu_colorPressed="@color/md_grey_700"
-            fab:menu_fab_size="mini">
+            fab:menu_fab_size="mini"
+            fab:menu_labels_colorNormal="@color/md_deep_orange_900"
+            fab:menu_labels_colorPressed="@color/md_deep_orange_700">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/share_item"
