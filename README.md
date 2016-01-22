@@ -13,7 +13,7 @@
 ## Libraries Used
 * [RxJava](https://github.com/ReactiveX/RxJava) and [RxBinding](https://github.com/JakeWharton/RxBinding) for events
 * [Retrolamda](https://github.com/orfjackal/retrolambda) for Java 8 lamdbas
-* [Icepick](https://github.com/frankiesardo/icepick) for view instate state restoration
+* [Icepick](https://github.com/frankiesardo/icepick) for view instance state restoration
 * [Backboard](https://github.com/tumblr/Backboard) for animations
 * [Butterknife](https://github.com/JakeWharton/butterknife) for view injection
 * [Timber](https://github.com/JakeWharton/timber) for logging

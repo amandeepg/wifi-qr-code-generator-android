@@ -8,12 +8,13 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+        classpath 'com.android.tools.build:gradle:2.0.0-alpha6'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.4'
+        //noinspection GradleDynamicVersion
+        classpath 'com.github.ben-manes:gradle-versions-plugin:+'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.google.gms:google-services:1.5.0'
-        classpath 'io.fabric.tools:gradle:1.20.1'
+        classpath 'io.fabric.tools:gradle:1.21.2'
         classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -32,5 +33,18 @@ allprojects {
         maven { url "http://dl.bintray.com/tbruyelle/tbruyelle" }
         maven { url "https://clojars.org/repo/" }
         maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencyUpdates.resolutionStrategy = {
+        componentSelection { rules ->
+            rules.all { ComponentSelection selection ->
+                boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                    selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+                }
+                if (rejected) {
+                    selection.reject('Release candidate')
+                }
+            }
+        }
     }
 }
